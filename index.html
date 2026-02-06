@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smartfit Coaching | David Puschmann - Personal Training Trier</title>
-    <meta name="description" content="Personal Training & Online Coaching in Trier. 350+ zufriedene Kunden, 10+ Jahre Erfahrung. TÜV Rheinland zertifiziert.">
+    <meta name="description" content="Personal Training & Online Coaching in Trier. 350+ zufriedene Kunden, 10+ Jahre Erfahrung. TÜV Rheinland zertifiziert. Jetzt kostenlos beraten lassen.">
     
     <!-- Favicon -->
     <link rel="icon" href="https://smartfit-coaching.de/wp-content/uploads/2022/05/cropped-Smartfit_Coaching_Favicon_ws-32x32.png" sizes="32x32">
     <link rel="apple-touch-icon" href="https://smartfit-coaching.de/wp-content/uploads/2022/05/cropped-Smartfit_Coaching_Favicon_ws-180x180.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Smartfit Coaching | Personal Training Trier">
+    <meta property="og:description" content="Nachhaltig fit, gesund & zufrieden. 350+ erfolgreiche Transformationen.">
+    <meta property="og:image" content="https://smartfit-coaching.de/wp-content/uploads/2023/02/personal-trainer-trier-david-puschmann-smartfit-coaching.png">
+    <meta property="og:type" content="website">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -44,13 +50,14 @@
             -webkit-overflow-scrolling: touch;
         }
         body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; }
+        
         .gradient-text { background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); }
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(16,185,129,0.15); }
         
-        /* Contain all sections - prevent AOS animations from causing overflow */
-        section, header, footer { max-width: 100vw; overflow-x: clip; overflow-x: hidden; }
+        /* Contain all sections */
+        section, header, footer { max-width: 100vw; overflow-x: hidden; }
         
         /* Mobile: Replace horizontal AOS animations with vertical */
         @media (max-width: 767px) {
@@ -67,18 +74,17 @@
         .mobile-menu.open { transform: translateX(0); }
         
         /* Smooth image loading */
-        img { opacity: 0; transition: opacity 0.3s ease; }
+        img { opacity: 0; transition: opacity 0.3s ease; max-width: 100%; height: auto; }
         img.loaded { opacity: 1; }
         
-        /* Counter Animation */
-        .counter { display: inline-block; }
+        /* FAQ Accordion */
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-item.open .faq-answer { max-height: 500px; }
+        .faq-item.open .faq-icon { transform: rotate(180deg); }
+        .faq-icon { transition: transform 0.3s ease; }
         
-        /* Testimonial Slider */
-        .testimonial-track { display: flex; transition: transform 0.5s ease; }
-        .testimonial-track > div { box-sizing: border-box; }
-        
-        /* Ensure images don't overflow */
-        img { max-width: 100%; height: auto; }
+        /* Process Timeline */
+        .process-line { position: absolute; left: 24px; top: 48px; bottom: 0; width: 2px; background: linear-gradient(to bottom, #10b981, transparent); }
         
         /* CTA Pulse */
         @keyframes pulse-ring {
@@ -89,6 +95,13 @@
             content: ''; position: absolute; inset: -4px; background: #10b981; border-radius: inherit;
             animation: pulse-ring 2s ease-out infinite; z-index: -1;
         }
+        
+        /* Trust Badge Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .trust-badge { animation: float 3s ease-in-out infinite; }
     </style>
 </head>
 <body class="antialiased">
@@ -104,10 +117,11 @@
             </svg>
         </button>
         <nav class="mt-12 space-y-4">
+            <a href="#fuer-wen" onclick="closeMobileMenu()" class="block py-3 text-lg text-gray-300 hover:text-accent border-b border-white/10">Für wen?</a>
             <a href="#methode" onclick="closeMobileMenu()" class="block py-3 text-lg text-gray-300 hover:text-accent border-b border-white/10">Die Methode</a>
-            <a href="#ueber" onclick="closeMobileMenu()" class="block py-3 text-lg text-gray-300 hover:text-accent border-b border-white/10">Über mich</a>
+            <a href="#prozess" onclick="closeMobileMenu()" class="block py-3 text-lg text-gray-300 hover:text-accent border-b border-white/10">Ablauf</a>
             <a href="#erfolge" onclick="closeMobileMenu()" class="block py-3 text-lg text-gray-300 hover:text-accent border-b border-white/10">Erfolge</a>
-            <a href="#kontakt" onclick="closeMobileMenu()" class="block py-3 text-lg text-gray-300 hover:text-accent border-b border-white/10">Kontakt</a>
+            <a href="#faq" onclick="closeMobileMenu()" class="block py-3 text-lg text-gray-300 hover:text-accent border-b border-white/10">FAQ</a>
             <a href="#kontakt" onclick="closeMobileMenu()" class="block mt-6 py-4 bg-accent text-black text-center font-semibold rounded-xl">Kostenlos beraten</a>
         </nav>
     </div>
@@ -121,11 +135,12 @@
             </a>
             
             <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="#methode" class="text-sm text-gray-400 hover:text-white transition-colors">Die Methode</a>
-                <a href="#ueber" class="text-sm text-gray-400 hover:text-white transition-colors">Über mich</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#fuer-wen" class="text-sm text-gray-400 hover:text-white transition-colors">Für wen?</a>
+                <a href="#methode" class="text-sm text-gray-400 hover:text-white transition-colors">Methode</a>
                 <a href="#erfolge" class="text-sm text-gray-400 hover:text-white transition-colors">Erfolge</a>
-                <a href="#kontakt" class="px-5 py-2.5 bg-accent hover:bg-accent-light text-black text-sm font-semibold rounded-full transition-colors">Kontakt</a>
+                <a href="#faq" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a>
+                <a href="#kontakt" class="px-5 py-2.5 bg-accent hover:bg-accent-light text-black text-sm font-semibold rounded-full transition-colors">Erstgespräch</a>
             </nav>
             
             <!-- Mobile Menu Button -->
@@ -137,388 +152,650 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen pt-16 relative overflow-hidden">
-        <!-- Background Image -->
+    <!-- ==================== HERO ==================== -->
+    <section class="min-h-screen pt-16 relative overflow-hidden flex items-center">
         <div class="absolute inset-0 z-0">
             <img src="https://smartfit-coaching.de/wp-content/uploads/2023/12/IMG_2142-scaled.jpg" 
-                 alt="" class="w-full h-full object-cover opacity-20" onload="this.classList.add('loaded')">
+                 alt="" class="w-full h-full object-cover opacity-15" onload="this.classList.add('loaded')">
             <div class="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-900/95 to-dark-900"></div>
         </div>
         
-        <div class="relative z-10 max-w-6xl mx-auto px-4 pt-12 md:pt-20">
+        <div class="relative z-10 max-w-6xl mx-auto px-4 py-12 md:py-0">
             <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                 <!-- Text Content -->
                 <div class="order-2 md:order-1 text-center md:text-left">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs font-medium mb-6" data-aos="fade-up">
-                        <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                    <!-- Trust Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent text-sm font-medium mb-6 trust-badge" data-aos="fade-up">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
                         TÜV Rheinland zertifiziert
                     </div>
                     
                     <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6" data-aos="fade-up" data-aos-delay="100">
-                        Nachhaltig fit,<br>
-                        <span class="gradient-text">gesund & zufrieden</span>
+                        Endlich nachhaltig<br>
+                        <span class="gradient-text">fit & zufrieden</span>
                     </h1>
                     
-                    <p class="text-base sm:text-lg text-gray-400 mb-8 max-w-lg mx-auto md:mx-0" data-aos="fade-up" data-aos-delay="200">
-                        Personal Training in Trier & Online Coaching. Über 350 Menschen haben mit mir ihre Ziele erreicht – ohne Verzicht und Hungern.
+                    <p class="text-lg sm:text-xl text-gray-300 mb-4" data-aos="fade-up" data-aos-delay="150">
+                        Ohne Hungern. Ohne Verzicht. Ohne Jojo-Effekt.
                     </p>
                     
-                    <!-- Stats Mobile -->
-                    <div class="flex justify-center md:justify-start gap-6 mb-8" data-aos="fade-up" data-aos-delay="300">
-                        <div class="text-center">
-                            <div class="text-2xl sm:text-3xl font-bold text-accent"><span class="counter" data-target="350">0</span>+</div>
-                            <div class="text-xs text-gray-500">Kunden</div>
+                    <p class="text-base text-gray-400 mb-8 max-w-lg mx-auto md:mx-0" data-aos="fade-up" data-aos-delay="200">
+                        Personal Training in Trier & deutschlandweites Online-Coaching. 
+                        <strong class="text-white">350+ Menschen</strong> haben mit mir ihre Ziele erreicht.
+                    </p>
+                    
+                    <!-- Social Proof -->
+                    <div class="flex flex-wrap justify-center md:justify-start gap-6 mb-8" data-aos="fade-up" data-aos-delay="250">
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👨</div>
+                                <div class="w-8 h-8 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👩</div>
+                                <div class="w-8 h-8 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👨</div>
+                            </div>
+                            <div class="text-sm">
+                                <span class="text-white font-semibold">350+</span>
+                                <span class="text-gray-500">Kunden</span>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-2xl sm:text-3xl font-bold text-accent"><span class="counter" data-target="10">0</span>+</div>
-                            <div class="text-xs text-gray-500">Jahre</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl sm:text-3xl font-bold text-accent">4.9</div>
-                            <div class="text-xs text-gray-500">Google ⭐</div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-400">4.9 auf Google</span>
                         </div>
                     </div>
                     
                     <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start" data-aos="fade-up" data-aos-delay="400">
-                        <a href="#kontakt" class="px-8 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl text-center transition-all hover:scale-105">
-                            Kostenlos beraten lassen
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start" data-aos="fade-up" data-aos-delay="300">
+                        <a href="#kontakt" class="px-8 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl text-center transition-all hover:scale-105 shadow-lg shadow-accent/25">
+                            Kostenloses Erstgespräch buchen
                         </a>
-                        <a href="#methode" class="px-8 py-4 glass hover:bg-white/10 rounded-xl text-center transition-colors">
-                            Mehr erfahren
+                        <a href="#erfolge" class="px-8 py-4 glass hover:bg-white/10 rounded-xl text-center transition-colors flex items-center justify-center gap-2">
+                            <span>Erfolge ansehen</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </a>
                     </div>
+                    
+                    <!-- Risk Reversal -->
+                    <p class="mt-6 text-sm text-gray-500 flex items-center justify-center md:justify-start gap-2" data-aos="fade-up" data-aos-delay="350">
+                        <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        100% unverbindlich – Keine Kosten, keine Verpflichtung
+                    </p>
                 </div>
                 
                 <!-- Hero Image -->
-                <div class="order-1 md:order-2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
+                <div class="order-1 md:order-2 flex justify-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative">
                         <div class="absolute inset-0 bg-gradient-to-t from-accent/20 to-transparent rounded-3xl blur-3xl"></div>
                         <img src="https://smartfit-coaching.de/wp-content/uploads/2023/02/personal-trainer-trier-david-puschmann-smartfit-coaching.png" 
                              alt="David Puschmann - Personal Trainer Trier" 
-                             class="relative w-64 sm:w-80 md:w-full max-w-md mx-auto"
+                             class="relative w-56 sm:w-72 md:w-full max-w-sm mx-auto"
                              onload="this.classList.add('loaded')">
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-            </svg>
-        </div>
     </section>
 
-    <!-- Referenzen Banner -->
-    <section class="py-8 bg-dark-800 border-y border-white/5">
-        <div class="max-w-6xl mx-auto px-4">
-            <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/referenzen-smartfit-coaching.png" 
-                 alt="Bekannt aus" class="h-8 md:h-12 mx-auto opacity-60" onload="this.classList.add('loaded')">
-        </div>
-    </section>
-
-    <!-- USPs -->
-    <section class="py-12 md:py-16 bg-dark-900">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="glass rounded-2xl p-5 text-center" data-aos="fade-up">
-                    <div class="text-2xl mb-2">💼</div>
-                    <div class="text-sm font-medium">Als Betriebsausgabe absetzbar</div>
-                    <div class="text-xs text-gray-500 mt-1">Für Selbstständige & Unternehmer</div>
-                </div>
-                <div class="glass rounded-2xl p-5 text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-2xl mb-2">🍕</div>
-                    <div class="text-sm font-medium">Keine Diät, kein Verzicht</div>
-                    <div class="text-xs text-gray-500 mt-1">Pizza, Pasta & Alkohol erlaubt</div>
-                </div>
-                <div class="glass rounded-2xl p-5 text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-2xl mb-2">📉</div>
-                    <div class="text-sm font-medium">Nachhaltige Ergebnisse</div>
-                    <div class="text-xs text-gray-500 mt-1">Bis zu 50kg Gewichtsverlust</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Die Methode -->
-    <section id="methode" class="py-16 md:py-24 bg-dark-800">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">
-                    Die <span class="gradient-text">Smartfit-Methode</span>
-                </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base" data-aos="fade-up" data-aos-delay="100">
-                    5 Säulen für deinen nachhaltigen Erfolg – individuell auf dich abgestimmt
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <!-- Performance -->
-                <div class="glass rounded-2xl p-6 card-hover" data-aos="fade-up">
-                    <div class="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center mb-4">
-                        <img src="https://smartfit-coaching.de/wp-content/uploads/2023/02/personal-trainer-trier-smartfit-coaching-2.png" 
-                             alt="Training" class="w-10 h-10 object-contain" onload="this.classList.add('loaded')">
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">Performance</h3>
-                    <p class="text-gray-400 text-sm mb-4">2x 45 Min. pro Woche reichen für optimale Ergebnisse.</p>
-                    <ul class="text-xs text-gray-500 space-y-1">
-                        <li>✓ Kraft, Ausdauer & Beweglichkeit</li>
-                        <li>✓ Muskelaufbau & Fettabbau</li>
-                        <li>✓ Rückenschmerzen reduzieren</li>
-                    </ul>
-                </div>
-                
-                <!-- Ernährung -->
-                <div class="glass rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center mb-4">
-                        <img src="https://smartfit-coaching.de/wp-content/uploads/2023/02/ernaehrungsberatung-trier-smartfit-coaching.png" 
-                             alt="Ernährung" class="w-10 h-10 object-contain" onload="this.classList.add('loaded')">
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">Ernährung</h3>
-                    <p class="text-gray-400 text-sm mb-4">Nachhaltig abnehmen ohne Verzicht und Hungern.</p>
-                    <ul class="text-xs text-gray-500 space-y-1">
-                        <li>✓ Individuelle Ernährungspläne</li>
-                        <li>✓ Leckere Rezepte</li>
-                        <li>✓ Restaurantbesuche möglich</li>
-                    </ul>
-                </div>
-                
-                <!-- Longevity -->
-                <div class="glass rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center mb-4">
-                        <img src="https://smartfit-coaching.de/wp-content/uploads/2023/02/analyse-smartfit-coaching-trier-1.png" 
-                             alt="Longevity" class="w-10 h-10 object-contain" onload="this.classList.add('loaded')">
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">Longevity</h3>
-                    <p class="text-gray-400 text-sm mb-4">Optimiere deine Gesundheit langfristig.</p>
-                    <ul class="text-xs text-gray-500 space-y-1">
-                        <li>✓ Blutwerte analysieren</li>
-                        <li>✓ Lebenserwartung steigern</li>
-                        <li>✓ Präventive Gesundheit</li>
-                    </ul>
-                </div>
-                
-                <!-- 1:1 Coaching -->
-                <div class="glass rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">👤</span>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">1:1 Coaching</h3>
-                    <p class="text-gray-400 text-sm mb-4">Persönliche Betreuung auf höchstem Niveau.</p>
-                    <ul class="text-xs text-gray-500 space-y-1">
-                        <li>✓ Individuelle Betreuung</li>
-                        <li>✓ Wöchentliche Coaching-Calls</li>
-                        <li>✓ Mitgliederbereich mit Videos</li>
-                    </ul>
-                </div>
-                
-                <!-- Flexibilität -->
-                <div class="glass rounded-2xl p-6 card-hover sm:col-span-2 lg:col-span-2" data-aos="fade-up" data-aos-delay="400">
-                    <div class="flex flex-col md:flex-row gap-6">
-                        <div class="flex-1">
-                            <div class="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center mb-4">
-                                <span class="text-2xl">🌍</span>
-                            </div>
-                            <h3 class="text-lg font-semibold mb-2">Maximale Flexibilität</h3>
-                            <p class="text-gray-400 text-sm mb-4">Training wie es in deinen Alltag passt.</p>
-                            <ul class="text-xs text-gray-500 space-y-1">
-                                <li>✓ Vor Ort in Trier oder Luxemburg</li>
-                                <li>✓ Online-Coaching deutschlandweit</li>
-                                <li>✓ Im Gym, zuhause oder outdoor</li>
-                            </ul>
-                        </div>
-                        <div class="flex-1">
-                            <img src="https://smartfit-coaching.de/wp-content/uploads/2023/12/IMG_2095-scaled.jpg" 
-                                 alt="Personal Training" class="w-full h-40 md:h-full object-cover rounded-xl" onload="this.classList.add('loaded')">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Über mich -->
-    <section id="ueber" class="py-16 md:py-24 bg-dark-900">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div class="order-2 md:order-1" data-aos="fade-right">
-                    <img src="https://smartfit-coaching.de/wp-content/uploads/2022/10/david-puschmann-personal-trainer-1.png" 
-                         alt="David Puschmann" class="w-64 md:w-80 mx-auto rounded-2xl" onload="this.classList.add('loaded')">
-                </div>
-                <div class="order-1 md:order-2" data-aos="fade-left">
-                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
-                        Hi, ich bin <span class="gradient-text">David</span>
-                    </h2>
-                    <p class="text-gray-400 mb-4 text-sm sm:text-base">
-                        Als studierter Fitnessökonom und einer von nur 60 TÜV-zertifizierten Personal Trainern in der DACH-Region 
-                        habe ich in den letzten 10 Jahren über 350 Menschen geholfen, ihre Ziele zu erreichen.
-                    </p>
-                    <p class="text-gray-400 mb-6 text-sm sm:text-base">
-                        Mein Fokus liegt auf nachhaltigen Ergebnissen. Keine Crash-Diäten, kein extremer Verzicht – 
-                        sondern ein Konzept, das in deinen Alltag passt und dich langfristig fit, gesund und zufrieden macht.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span class="px-3 py-1.5 bg-accent/10 text-accent text-xs rounded-full">TÜV zertifiziert</span>
-                        <span class="px-3 py-1.5 bg-accent/10 text-accent text-xs rounded-full">Fitnessökonom (B.A.)</span>
-                        <span class="px-3 py-1.5 bg-accent/10 text-accent text-xs rounded-full">10+ Jahre Erfahrung</span>
-                    </div>
-                    
-                    <a href="#kontakt" class="inline-flex items-center gap-2 text-accent hover:text-accent-light text-sm font-medium">
-                        Lass uns kennenlernen
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Erfolge -->
-    <section id="erfolge" class="py-16 md:py-24 bg-dark-800">
+    <!-- ==================== FÜR WEN? ==================== -->
+    <section id="fuer-wen" class="py-16 md:py-24 bg-dark-800">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">
-                    Echte <span class="gradient-text">Erfolgsgeschichten</span>
+                <span class="text-accent text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Passt das zu dir?</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Mein Coaching ist <span class="gradient-text">für dich</span>, wenn...
                 </h2>
-                <p class="text-gray-400 text-sm sm:text-base" data-aos="fade-up" data-aos-delay="100">
-                    Was meine Kunden über ihre Transformation sagen
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Ideal für -->
+                <div class="glass rounded-2xl p-6 md:p-8" data-aos="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-accent">Perfekt für dich</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-1">✓</span>
+                            <span class="text-gray-300">Du bist <strong class="text-white">berufstätig, Unternehmer oder Selbstständig</strong> und hast wenig Zeit</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-1">✓</span>
+                            <span class="text-gray-300">Du hast schon <strong class="text-white">Diäten probiert</strong>, aber nichts hat langfristig funktioniert</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-1">✓</span>
+                            <span class="text-gray-300">Du willst <strong class="text-white">abnehmen, fitter werden oder Muskeln aufbauen</strong> – ohne dein Leben umzukrempeln</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-1">✓</span>
+                            <span class="text-gray-300">Du hast <strong class="text-white">Rücken-, Nacken- oder Gelenkschmerzen</strong> durch Büroarbeit</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-1">✓</span>
+                            <span class="text-gray-300">Du bist bereit, in dich selbst zu investieren</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Nicht ideal -->
+                <div class="glass rounded-2xl p-6 md:p-8 opacity-70" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-red-400">Eher nicht für dich</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1">✗</span>
+                            <span class="text-gray-400">Du suchst eine <strong class="text-gray-300">Crash-Diät</strong> oder schnelle Wunderlösung</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1">✗</span>
+                            <span class="text-gray-400">Du erwartest Ergebnisse <strong class="text-gray-300">ohne eigenen Einsatz</strong></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1">✗</span>
+                            <span class="text-gray-400">Du willst <strong class="text-gray-300">Bodybuilding-Wettkämpfe</strong> gewinnen</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1">✗</span>
+                            <span class="text-gray-400">Du bist nicht bereit, 2x45 Min./Woche zu investieren</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Trust Indicators -->
+            <div class="mt-12 pt-8 border-t border-white/10">
+                <p class="text-center text-sm text-gray-500 mb-6">Bekannt aus & zertifiziert von</p>
+                <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/referenzen-smartfit-coaching.png" 
+                     alt="Referenzen" class="h-8 md:h-10 mx-auto opacity-60" onload="this.classList.add('loaded')" data-aos="fade-up">
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DIE METHODE ==================== -->
+    <section id="methode" class="py-16 md:py-24 bg-dark-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12 md:mb-16">
+                <span class="text-accent text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Die Smartfit-Methode</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Warum es bei mir <span class="gradient-text">funktioniert</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150">
+                    Kein Hungern, kein Verzicht – stattdessen ein System, das in deinen Alltag passt
                 </p>
             </div>
             
-            <!-- Success Images -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12" data-aos="fade-up">
-                <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-personal-training-trier.png" 
-                     alt="Kundenerfolg" class="rounded-xl w-full aspect-square object-cover" onload="this.classList.add('loaded')">
-                <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-smartfit-coaching-1.png" 
-                     alt="Kundenerfolg" class="rounded-xl w-full aspect-square object-cover" onload="this.classList.add('loaded')">
-                <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-smartfit-coaching-luxemburg-1.png" 
-                     alt="Kundenerfolg" class="rounded-xl w-full aspect-square object-cover" onload="this.classList.add('loaded')">
-                <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-smartfit-coaching-trier-luxemburg-1.png" 
-                     alt="Kundenerfolg" class="rounded-xl w-full aspect-square object-cover" onload="this.classList.add('loaded')">
-            </div>
-            
-            <!-- Testimonials Slider -->
-            <div class="relative overflow-hidden max-w-full" data-aos="fade-up">
-                <div id="testimonial-track" class="testimonial-track">
-                    <!-- Testimonial 1 -->
-                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2">
-                        <div class="glass rounded-2xl p-6 h-full">
-                            <div class="flex items-center gap-1 text-yellow-400 mb-4">★★★★★</div>
-                            <p class="text-gray-300 text-sm mb-4">
-                                "Mit Davids Hilfe habe ich in 6 Monaten 10kg abgenommen, ohne zu hungern. 
-                                Ich trage jetzt 2 Kleidergrößen kleiner und fühle mich großartig!"
-                            </p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center text-accent font-bold">A</div>
-                                <div>
-                                    <div class="font-medium text-sm">Andrea</div>
-                                    <div class="text-xs text-gray-500">-10 kg in 6 Monaten</div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Säule 1 -->
+                <div class="glass rounded-2xl p-6 card-hover" data-aos="fade-up">
+                    <div class="w-14 h-14 bg-gradient-to-br from-accent to-accent-dark rounded-2xl flex items-center justify-center mb-5 text-2xl">
+                        💪
                     </div>
-                    
-                    <!-- Testimonial 2 -->
-                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2">
-                        <div class="glass rounded-2xl p-6 h-full">
-                            <div class="flex items-center gap-1 text-yellow-400 mb-4">★★★★★</div>
-                            <p class="text-gray-300 text-sm mb-4">
-                                "Nach einem Monat Training waren meine Rückenschmerzen weg. 
-                                David ist super professionell und flexibel!"
-                            </p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center text-accent font-bold">B</div>
-                                <div>
-                                    <div class="font-medium text-sm">Bastian</div>
-                                    <div class="text-xs text-gray-500">Keine Rückenschmerzen mehr</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonial 3 -->
-                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2">
-                        <div class="glass rounded-2xl p-6 h-full">
-                            <div class="flex items-center gap-1 text-yellow-400 mb-4">★★★★★</div>
-                            <p class="text-gray-300 text-sm mb-4">
-                                "35kg abgenommen in 12 Monaten! Das Beste: Ich konnte essen was ich wollte, 
-                                nur die Mengen und Makros anpassen."
-                            </p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center text-accent font-bold">M</div>
-                                <div>
-                                    <div class="font-medium text-sm">Michael</div>
-                                    <div class="text-xs text-gray-500">-35 kg in 12 Monaten</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonial 4 -->
-                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2">
-                        <div class="glass rounded-2xl p-6 h-full">
-                            <div class="flex items-center gap-1 text-yellow-400 mb-4">★★★★★</div>
-                            <p class="text-gray-300 text-sm mb-4">
-                                "Über 50kg leichter und frei von Rücken- und Nackenschmerzen. 
-                                David hat mein Leben verändert!"
-                            </p>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center text-accent font-bold">T</div>
-                                <div>
-                                    <div class="font-medium text-sm">Thomas</div>
-                                    <div class="text-xs text-gray-500">-50 kg, schmerzfrei</div>
-                                </div>
-                            </div>
-                        </div>
+                    <h3 class="text-xl font-semibold mb-3">Effektives Training</h3>
+                    <p class="text-gray-400 text-sm mb-4">2x 45 Minuten pro Woche reichen aus. Kraft, Ausdauer und Beweglichkeit – alles in einem.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Muskelaufbau</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Fettabbau</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Schmerzfrei</span>
                     </div>
                 </div>
                 
-                <!-- Slider Controls -->
-                <div class="flex justify-center gap-2 mt-6">
-                    <button onclick="prevTestimonial()" class="w-10 h-10 glass rounded-full flex items-center justify-center hover:bg-white/10">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                        </svg>
-                    </button>
-                    <button onclick="nextTestimonial()" class="w-10 h-10 glass rounded-full flex items-center justify-center hover:bg-white/10">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </button>
+                <!-- Säule 2 -->
+                <div class="glass rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-gradient-to-br from-accent to-accent-dark rounded-2xl flex items-center justify-center mb-5 text-2xl">
+                        🍕
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Flexible Ernährung</h3>
+                    <p class="text-gray-400 text-sm mb-4">Iss weiterhin Pizza, Pasta und trink auch mal ein Bier. Keine verbotenen Lebensmittel.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Keine Verbote</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Alltagstauglich</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Restaurantbesuche OK</span>
+                    </div>
+                </div>
+                
+                <!-- Säule 3 -->
+                <div class="glass rounded-2xl p-6 card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-gradient-to-br from-accent to-accent-dark rounded-2xl flex items-center justify-center mb-5 text-2xl">
+                        🎯
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">1:1 Betreuung</h3>
+                    <p class="text-gray-400 text-sm mb-4">Kein Gruppenkurs, kein Programm von der Stange. Alles individuell auf dich zugeschnitten.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Persönlich</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Wöchentliche Calls</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Schnelle Antworten</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Zusatz-Info -->
+            <div class="mt-12 glass rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6" data-aos="fade-up">
+                <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center text-3xl">💼</div>
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-semibold mb-2">Für Selbstständige & Unternehmer: Als Betriebsausgabe absetzbar</h3>
+                    <p class="text-gray-400 text-sm">Personal Training ist für Unternehmer steuerlich absetzbar – deine Gesundheit als Investment. Sprich mich im Erstgespräch darauf an.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Kontakt -->
+    <!-- ==================== DER PROZESS ==================== -->
+    <section id="prozess" class="py-16 md:py-24 bg-dark-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-accent text-sm font-medium uppercase tracking-wider" data-aos="fade-up">So läuft's ab</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    In 4 Schritten zu <span class="gradient-text">deinem Ziel</span>
+                </h2>
+            </div>
+            
+            <div class="relative">
+                <!-- Timeline Line (Desktop) -->
+                <div class="hidden md:block process-line"></div>
+                
+                <!-- Step 1 -->
+                <div class="relative flex gap-6 mb-8" data-aos="fade-up">
+                    <div class="flex-shrink-0 w-12 h-12 bg-accent rounded-full flex items-center justify-center text-black font-bold text-lg z-10">1</div>
+                    <div class="glass rounded-2xl p-6 flex-1">
+                        <h3 class="text-lg font-semibold mb-2">Kostenloses Erstgespräch (15 Min.)</h3>
+                        <p class="text-gray-400 text-sm">Wir lernen uns kennen, ich höre dir zu und wir klären, ob wir zusammenpassen. Kein Verkaufsdruck – versprochen.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="relative flex gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex-shrink-0 w-12 h-12 bg-accent/80 rounded-full flex items-center justify-center text-black font-bold text-lg z-10">2</div>
+                    <div class="glass rounded-2xl p-6 flex-1">
+                        <h3 class="text-lg font-semibold mb-2">Analyse & Planung</h3>
+                        <p class="text-gray-400 text-sm">Detaillierte Analyse deiner Situation: Ziele, Alltag, Ernährung, eventuelle Beschwerden. Daraus entsteht dein persönlicher Plan.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="relative flex gap-6 mb-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex-shrink-0 w-12 h-12 bg-accent/60 rounded-full flex items-center justify-center text-black font-bold text-lg z-10">3</div>
+                    <div class="glass rounded-2xl p-6 flex-1">
+                        <h3 class="text-lg font-semibold mb-2">Training & Coaching starten</h3>
+                        <p class="text-gray-400 text-sm">Wir starten mit 2x wöchentlichem Training (vor Ort oder online) + Ernährungsanpassung. Du merkst schnell erste Veränderungen.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="relative flex gap-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex-shrink-0 w-12 h-12 bg-accent/40 rounded-full flex items-center justify-center text-black font-bold text-lg z-10">4</div>
+                    <div class="glass rounded-2xl p-6 flex-1">
+                        <h3 class="text-lg font-semibold mb-2">Dranbleiben & Ergebnisse feiern</h3>
+                        <p class="text-gray-400 text-sm">Regelmäßige Check-ins, Anpassungen und Motivation. Nach 3-6 Monaten wirst du dich nicht wiedererkennen.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA -->
+            <div class="text-center mt-12" data-aos="fade-up">
+                <a href="#kontakt" class="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl transition-all hover:scale-105">
+                    Erstgespräch vereinbaren
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ERFOLGE ==================== -->
+    <section id="erfolge" class="py-16 md:py-24 bg-dark-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-accent text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Echte Ergebnisse</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <span class="gradient-text">Transformationen</span>, die sprechen
+                </h2>
+                <p class="text-gray-400" data-aos="fade-up" data-aos-delay="150">
+                    Keine Models, keine Stockfotos – echte Menschen mit echten Geschichten
+                </p>
+            </div>
+            
+            <!-- Featured Transformations -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Transformation 1 -->
+                <div class="glass rounded-2xl overflow-hidden card-hover" data-aos="fade-up">
+                    <div class="relative">
+                        <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-personal-training-trier.png" 
+                             alt="Michael - Transformation" class="w-full aspect-[4/3] object-cover" onload="this.classList.add('loaded')">
+                        <div class="absolute top-3 right-3 px-3 py-1 bg-accent text-black text-sm font-bold rounded-full">-35 kg</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-1 text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <h3 class="font-semibold mb-2">Michael, 42</h3>
+                        <p class="text-gray-400 text-sm mb-4">"35 kg in 12 Monaten – und ich konnte weiter essen, was ich wollte. David hat mir gezeigt, wie's geht."</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Unternehmer</span>
+                            <span class="px-2 py-1 bg-white/5 text-gray-400 rounded">12 Monate</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transformation 2 -->
+                <div class="glass rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative">
+                        <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-smartfit-coaching-1.png" 
+                             alt="Sandra - Transformation" class="w-full aspect-[4/3] object-cover" onload="this.classList.add('loaded')">
+                        <div class="absolute top-3 right-3 px-3 py-1 bg-accent text-black text-sm font-bold rounded-full">-18 kg</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-1 text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <h3 class="font-semibold mb-2">Sandra, 38</h3>
+                        <p class="text-gray-400 text-sm mb-4">"Nach 2 Kindern hatte ich mich aufgegeben. Jetzt fühle ich mich fitter als mit 25!"</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Mutter & Berufstätig</span>
+                            <span class="px-2 py-1 bg-white/5 text-gray-400 rounded">8 Monate</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transformation 3 -->
+                <div class="glass rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative">
+                        <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-smartfit-coaching-luxemburg-1.png" 
+                             alt="Thomas - Transformation" class="w-full aspect-[4/3] object-cover" onload="this.classList.add('loaded')">
+                        <div class="absolute top-3 right-3 px-3 py-1 bg-accent text-black text-sm font-bold rounded-full">-50 kg</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-1 text-yellow-400 text-sm mb-2">★★★★★</div>
+                        <h3 class="font-semibold mb-2">Thomas, 51</h3>
+                        <p class="text-gray-400 text-sm mb-4">"50 kg weniger und endlich schmerzfrei. Rücken, Nacken, Knie – alles weg. Das ist unbezahlbar."</p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Geschäftsführer</span>
+                            <span class="px-2 py-1 bg-white/5 text-gray-400 rounded">18 Monate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- View All Button -->
+            <div class="text-center" data-aos="fade-up">
+                <a href="erfolge.html" class="inline-flex items-center gap-2 px-6 py-3 glass hover:bg-white/10 rounded-xl transition-colors">
+                    Alle Erfolgsgeschichten ansehen
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16" data-aos="fade-up">
+                <div class="text-center p-6 glass rounded-2xl">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text mb-1">350+</div>
+                    <div class="text-sm text-gray-400">Zufriedene Kunden</div>
+                </div>
+                <div class="text-center p-6 glass rounded-2xl">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text mb-1">10+</div>
+                    <div class="text-sm text-gray-400">Jahre Erfahrung</div>
+                </div>
+                <div class="text-center p-6 glass rounded-2xl">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text mb-1">4.9</div>
+                    <div class="text-sm text-gray-400">Google Bewertung</div>
+                </div>
+                <div class="text-center p-6 glass rounded-2xl">
+                    <div class="text-3xl md:text-4xl font-bold gradient-text mb-1">93%</div>
+                    <div class="text-sm text-gray-400">Erreichen ihr Ziel</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ÜBER DAVID ==================== -->
+    <section id="ueber" class="py-16 md:py-24 bg-dark-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="order-2 md:order-1 flex justify-center" data-aos="fade-up">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-tr from-accent/20 to-transparent rounded-3xl blur-2xl"></div>
+                        <img src="https://smartfit-coaching.de/wp-content/uploads/2022/10/david-puschmann-personal-trainer-1.png" 
+                             alt="David Puschmann" class="relative w-64 md:w-80 rounded-2xl" onload="this.classList.add('loaded')">
+                    </div>
+                </div>
+                <div class="order-1 md:order-2" data-aos="fade-up">
+                    <span class="text-accent text-sm font-medium uppercase tracking-wider">Dein Coach</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-6">
+                        Hi, ich bin <span class="gradient-text">David</span>
+                    </h2>
+                    <div class="space-y-4 text-gray-400">
+                        <p>
+                            Als einer von nur <strong class="text-white">60 TÜV-zertifizierten Personal Trainern</strong> in der gesamten DACH-Region 
+                            weiß ich genau, was funktioniert – und was nicht.
+                        </p>
+                        <p>
+                            In den letzten 10 Jahren habe ich über 350 Menschen geholfen, ihre Ziele zu erreichen. 
+                            Mein Fokus: <strong class="text-white">Nachhaltige Ergebnisse</strong>, die bleiben.
+                        </p>
+                        <p>
+                            Keine Crash-Diäten. Kein extremer Verzicht. Stattdessen ein System, das in deinen Alltag passt – 
+                            egal ob du Unternehmer, Angestellter oder Elternteil bist.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 mt-6">
+                        <span class="px-3 py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">TÜV Rheinland zertifiziert</span>
+                        <span class="px-3 py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">Fitnessökonom (B.A.)</span>
+                        <span class="px-3 py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">Ernährungsberater</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== INVESTITION ==================== -->
+    <section class="py-16 md:py-24 bg-dark-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-accent text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Deine Investition</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Was kostet das <span class="gradient-text">Coaching</span>?
+                </h2>
+            </div>
+            
+            <div class="glass rounded-2xl p-6 md:p-8" data-aos="fade-up">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+                    <div>
+                        <div class="text-sm text-gray-400 mb-1">Personal Training & Coaching</div>
+                        <div class="text-3xl md:text-4xl font-bold">ab <span class="gradient-text">199€</span> <span class="text-lg text-gray-400 font-normal">/Monat</span></div>
+                    </div>
+                    <a href="#kontakt" class="px-6 py-3 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl text-center transition-all">
+                        Erstgespräch buchen
+                    </a>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 gap-4 pt-6 border-t border-white/10">
+                    <div>
+                        <h4 class="font-medium mb-3 flex items-center gap-2">
+                            <span class="text-accent">✓</span> Was du bekommst:
+                        </h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• 2x wöchentliches Training (vor Ort oder online)</li>
+                            <li>• Individueller Ernährungsplan</li>
+                            <li>• Wöchentliche Coaching-Calls</li>
+                            <li>• WhatsApp-Support für schnelle Fragen</li>
+                            <li>• Zugang zum Mitgliederbereich mit Videos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-3 flex items-center gap-2">
+                            <span class="text-accent">💡</span> Gut zu wissen:
+                        </h4>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li>• Flexible Laufzeiten (kein Jahresvertrag nötig)</li>
+                            <li>• Für Unternehmer als Betriebsausgabe absetzbar</li>
+                            <li>• Preis richtet sich nach Umfang & Ziel</li>
+                            <li>• Ratenzahlung möglich</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p class="text-center text-sm text-gray-500 mt-6">
+                    * Der genaue Preis richtet sich nach deinen Zielen und dem Coaching-Umfang. Im Erstgespräch besprechen wir alles transparent.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section id="faq" class="py-16 md:py-24 bg-dark-800">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-accent text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Häufige Fragen</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Das wirst du dich <span class="gradient-text">fragen</span>
+                </h2>
+            </div>
+            
+            <div class="space-y-4" data-aos="fade-up">
+                <!-- FAQ 1 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Ich habe keine Zeit für Training"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-4 text-gray-400 text-sm">
+                            2x 45 Minuten pro Woche – das sind weniger als 2% deiner wöchentlichen Zeit. Meine Kunden sind Unternehmer, 
+                            Manager und Eltern. Wenn sie Zeit finden, findest du sie auch. Außerdem trainieren wir so, dass es in deinen 
+                            Alltag passt – ob früh morgens, in der Mittagspause oder abends.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Ich habe schon so viel probiert, nichts funktioniert"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-4 text-gray-400 text-sm">
+                            Genau deshalb brauchst du keine weitere Diät, sondern einen Coach. Der Unterschied: Ich passe das Programm 
+                            kontinuierlich an dich an, halte dich accountable und sorge dafür, dass du dranbleibst. 93% meiner Kunden 
+                            erreichen ihr Ziel – weil sie nicht alleine kämpfen müssen.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Ist das auch was für komplette Anfänger?"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-4 text-gray-400 text-sm">
+                            Absolut! Die meisten meiner Kunden starten bei Null. Ich hole dich genau dort ab, wo du stehst. 
+                            Egal ob du noch nie Sport gemacht hast oder nach Jahren Pause wieder einsteigst – wir starten mit 
+                            den Basics und steigern uns gemeinsam.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Was, wenn ich nicht in Trier wohne?"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-4 text-gray-400 text-sm">
+                            Kein Problem! Ich biete auch deutschlandweites Online-Coaching an. Per Video-Call trainieren wir 
+                            genauso effektiv wie vor Ort. Viele meiner erfolgreichsten Kunden coache ich komplett remote.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 5 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Muss ich auf alles verzichten?"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-4 text-gray-400 text-sm">
+                            Nein! Das ist der größte Mythos. Du kannst weiterhin Pizza essen, ins Restaurant gehen und auch 
+                            mal ein Bier trinken. Wir arbeiten mit deinem Leben, nicht dagegen. Es geht um Balance und 
+                            smarte Entscheidungen, nicht um Verbote.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 6 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 flex items-center justify-between text-left" onclick="toggleFaq(this)">
+                        <span class="font-medium">"Was passiert im kostenlosen Erstgespräch?"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-4 text-gray-400 text-sm">
+                            Wir telefonieren ca. 15 Minuten. Ich höre mir an, wo du stehst und was du erreichen willst. 
+                            Dann erkläre ich dir, wie ich dir helfen kann – und ob wir überhaupt zusammenpassen. 
+                            Kein Verkaufsdruck, keine Verpflichtung. Wenn's nicht passt, sag ich dir das ehrlich.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== KONTAKT ==================== -->
     <section id="kontakt" class="py-16 md:py-24 bg-dark-900">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">
+                <span class="text-accent text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Jetzt starten</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up" data-aos-delay="100">
                     Bereit für deine <span class="gradient-text">Transformation</span>?
                 </h2>
-                <p class="text-gray-400 text-sm sm:text-base" data-aos="fade-up" data-aos-delay="100">
-                    Kostenloses Erstgespräch – unverbindlich und persönlich
+                <p class="text-gray-400" data-aos="fade-up" data-aos-delay="150">
+                    Kostenloses Erstgespräch – unverbindlich, 15 Minuten, ohne Verkaufsdruck
                 </p>
             </div>
             
             <div class="glass rounded-3xl p-6 md:p-10" data-aos="fade-up" data-aos-delay="200">
-                <form class="space-y-6">
+                <form class="space-y-6" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm text-gray-400 mb-2">Vorname *</label>
-                            <input type="text" required 
+                            <input type="text" name="vorname" required 
                                    class="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-accent focus:outline-none transition-colors"
                                    placeholder="Max">
                         </div>
                         <div>
                             <label class="block text-sm text-gray-400 mb-2">Nachname *</label>
-                            <input type="text" required 
+                            <input type="text" name="nachname" required 
                                    class="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-accent focus:outline-none transition-colors"
                                    placeholder="Mustermann">
                         </div>
@@ -527,65 +804,68 @@
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm text-gray-400 mb-2">E-Mail *</label>
-                            <input type="email" required 
+                            <input type="email" name="email" required 
                                    class="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-accent focus:outline-none transition-colors"
                                    placeholder="max@beispiel.de">
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-400 mb-2">Telefon</label>
-                            <input type="tel" 
+                            <label class="block text-sm text-gray-400 mb-2">Telefon *</label>
+                            <input type="tel" name="telefon" required
                                    class="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-accent focus:outline-none transition-colors"
                                    placeholder="+49 123 456789">
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block text-sm text-gray-400 mb-2">Was ist dein Ziel?</label>
-                        <select class="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white focus:border-accent focus:outline-none transition-colors">
+                        <label class="block text-sm text-gray-400 mb-2">Was ist dein wichtigstes Ziel?</label>
+                        <select name="ziel" class="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white focus:border-accent focus:outline-none transition-colors">
                             <option value="">Bitte wählen...</option>
-                            <option>Abnehmen</option>
+                            <option>Abnehmen (5-15 kg)</option>
+                            <option>Stark abnehmen (15+ kg)</option>
                             <option>Muskelaufbau</option>
-                            <option>Fitter werden</option>
-                            <option>Rückenschmerzen reduzieren</option>
-                            <option>Ernährung verbessern</option>
-                            <option>Sonstiges</option>
+                            <option>Fitter & gesünder werden</option>
+                            <option>Rückenschmerzen loswerden</option>
+                            <option>Mehr Energie im Alltag</option>
                         </select>
                     </div>
                     
                     <div>
-                        <label class="block text-sm text-gray-400 mb-2">Nachricht (optional)</label>
-                        <textarea rows="4" 
+                        <label class="block text-sm text-gray-400 mb-2">Was sollte ich noch wissen? (optional)</label>
+                        <textarea name="nachricht" rows="3" 
                                   class="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-accent focus:outline-none transition-colors resize-none"
-                                  placeholder="Erzähl mir mehr über deine Situation..."></textarea>
+                                  placeholder="Z.B. zeitliche Verfügbarkeit, besondere Umstände, Fragen..."></textarea>
                     </div>
                     
                     <button type="submit" 
-                            class="w-full py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl transition-all hover:scale-[1.02]">
+                            class="relative w-full py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl transition-all hover:scale-[1.02] cta-pulse">
                         Kostenloses Erstgespräch anfragen
                     </button>
                     
-                    <p class="text-xs text-gray-500 text-center">
-                        Mit dem Absenden stimmst du der Verarbeitung deiner Daten zu.
-                    </p>
+                    <div class="flex items-start gap-3 text-xs text-gray-500">
+                        <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Deine Daten sind sicher und werden nur für die Kontaktaufnahme verwendet. Kein Spam, versprochen.</span>
+                    </div>
                 </form>
             </div>
             
-            <!-- Alternative Kontakt -->
-            <div class="mt-8 text-center" data-aos="fade-up">
-                <p class="text-gray-400 text-sm mb-4">Oder direkt Kontakt aufnehmen:</p>
+            <!-- Direkter Kontakt -->
+            <div class="mt-10 text-center" data-aos="fade-up">
+                <p class="text-gray-400 text-sm mb-4">Oder direkt anrufen / schreiben:</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="tel:+4917888387851" class="inline-flex items-center justify-center gap-2 px-6 py-3 glass rounded-xl hover:bg-white/10 transition-colors">
-                        <span>📞</span> 01788 838785
+                        <span>📞</span> 0178 883 87 851
                     </a>
-                    <a href="mailto:support@smartfit-coaching.de" class="inline-flex items-center justify-center gap-2 px-6 py-3 glass rounded-xl hover:bg-white/10 transition-colors">
-                        <span>✉️</span> E-Mail schreiben
+                    <a href="https://wa.me/4917888387851" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl transition-colors">
+                        <span>💬</span> WhatsApp
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ==================== FOOTER ==================== -->
     <footer class="py-12 bg-dark-800 border-t border-white/5">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -597,29 +877,27 @@
                 <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
                     <a href="https://smartfit-coaching.de/impressum" target="_blank" class="hover:text-white">Impressum</a>
                     <a href="https://smartfit-coaching.de/datenschutz" target="_blank" class="hover:text-white">Datenschutz</a>
+                    <a href="erfolge.html" class="hover:text-white">Erfolgsgeschichten</a>
                 </div>
                 
                 <div class="text-sm text-gray-500">
-                    © 2026 Smartfit Coaching
+                    © 2026 Smartfit Coaching – David Puschmann
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Sticky Mobile CTA -->
+    <!-- ==================== STICKY MOBILE CTA ==================== -->
     <div class="fixed bottom-0 left-0 right-0 p-4 bg-dark-900/95 backdrop-blur-lg border-t border-white/10 md:hidden z-30">
         <a href="#kontakt" class="relative block w-full py-4 bg-accent text-black text-center font-semibold rounded-xl cta-pulse">
-            Jetzt kostenlos beraten lassen
+            Kostenloses Erstgespräch buchen
         </a>
     </div>
 
+    <!-- ==================== SCRIPTS ==================== -->
     <script>
         // Initialize AOS
-        AOS.init({
-            duration: 600,
-            once: true,
-            offset: 50
-        });
+        AOS.init({ duration: 600, once: true, offset: 50 });
         
         // Mobile Menu
         function openMobileMenu() {
@@ -634,74 +912,19 @@
             document.body.style.overflow = '';
         }
         
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-                
-                const updateCounter = () => {
-                    current += step;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                updateCounter();
-            });
+        // FAQ Accordion
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            const isOpen = item.classList.contains('open');
+            
+            // Close all other items
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            
+            // Toggle current item
+            if (!isOpen) {
+                item.classList.add('open');
+            }
         }
-        
-        // Trigger counter animation when in view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    observer.disconnect();
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        document.querySelectorAll('.counter').forEach(el => observer.observe(el.parentElement));
-        
-        // Testimonial Slider
-        let currentTestimonial = 0;
-        const track = document.getElementById('testimonial-track');
-        const totalTestimonials = 4;
-        
-        function getSlideWidth() {
-            if (window.innerWidth >= 1024) return 33.333;
-            if (window.innerWidth >= 768) return 50;
-            return 100;
-        }
-        
-        function updateSlider() {
-            const slideWidth = getSlideWidth();
-            track.style.transform = `translateX(-${currentTestimonial * slideWidth}%)`;
-        }
-        
-        function nextTestimonial() {
-            const maxSlides = window.innerWidth >= 1024 ? 2 : window.innerWidth >= 768 ? 3 : 4;
-            currentTestimonial = (currentTestimonial + 1) % maxSlides;
-            updateSlider();
-        }
-        
-        function prevTestimonial() {
-            const maxSlides = window.innerWidth >= 1024 ? 2 : window.innerWidth >= 768 ? 3 : 4;
-            currentTestimonial = (currentTestimonial - 1 + maxSlides) % maxSlides;
-            updateSlider();
-        }
-        
-        // Auto-slide
-        setInterval(nextTestimonial, 5000);
-        
-        // Resize handler
-        window.addEventListener('resize', updateSlider);
         
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -712,11 +935,7 @@
                     const headerOffset = 80;
                     const elementPosition = target.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                 }
             });
         });

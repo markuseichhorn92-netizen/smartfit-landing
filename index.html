@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Smartfit Coaching | David Puschmann - Personal Training Trier</title>
-    <meta name="description" content="Personal Training & Online Coaching in Trier. 350+ zufriedene Kunden, 10+ Jahre Erfahrung. TÜV Rheinland zertifiziert. Jetzt kostenlos beraten lassen.">
+    <title>Smartfit Longevity Coaching | David Puschmann - Länger leben. Besser altern.</title>
+    <meta name="description" content="Longevity Coaching für Professionals 35+. Biologisches Alter senken, Healthspan maximieren, mehr Energie. TÜV zertifiziert. Deutschlandweites Online-Coaching. 350+ Kunden.">
     
     <!-- Favicon -->
     <link rel="icon" href="https://smartfit-coaching.de/wp-content/uploads/2022/05/cropped-Smartfit_Coaching_Favicon_ws-32x32.png" sizes="32x32">
     <link rel="apple-touch-icon" href="https://smartfit-coaching.de/wp-content/uploads/2022/05/cropped-Smartfit_Coaching_Favicon_ws-180x180.png">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Smartfit Coaching | Personal Training Trier">
-    <meta property="og:description" content="Nachhaltig fit, gesund & zufrieden. 350+ erfolgreiche Transformationen.">
+    <meta property="og:title" content="Smartfit Longevity Coaching | Länger leben. Besser altern.">
+    <meta property="og:description" content="Longevity Coaching für Professionals 35+. Biologisches Alter senken, Healthspan maximieren.">
     <meta property="og:image" content="https://smartfit-coaching.de/wp-content/uploads/2023/02/personal-trainer-trier-david-puschmann-smartfit-coaching.png">
     <meta property="og:type" content="website">
     
@@ -34,7 +34,8 @@
                 extend: {
                     colors: {
                         dark: { 900: '#0a0a0a', 800: '#111111', 700: '#1a1a1a', 600: '#222222' },
-                        accent: { DEFAULT: '#10b981', light: '#34d399', dark: '#059669' }
+                        accent: { DEFAULT: '#06b6d4', light: '#22d3ee', dark: '#0891b2' },
+                        accent2: { DEFAULT: '#10b981', light: '#34d399' }
                     },
                     fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
@@ -83,10 +84,20 @@
         
         /* ========== UTILITIES ========== */
         .gradient-text { 
-            background: linear-gradient(135deg, #10b981, #34d399); 
+            background: linear-gradient(135deg, #06b6d4, #10b981); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
             background-clip: text; 
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #06b6d4, #10b981);
+        }
+        
+        .gradient-border {
+            border: 1px solid transparent;
+            background: linear-gradient(#111111, #111111) padding-box,
+                        linear-gradient(135deg, #06b6d4, #10b981) border-box;
         }
         
         .glass { 
@@ -102,7 +113,7 @@
         @media (min-width: 768px) {
             .card-hover:hover { 
                 transform: translateY(-4px); 
-                box-shadow: 0 20px 40px rgba(16,185,129,0.15); 
+                box-shadow: 0 20px 40px rgba(6,182,212,0.15); 
             }
         }
         
@@ -141,16 +152,10 @@
             transition: transform 0.3s ease; 
         }
         
-        /* ========== PROCESS TIMELINE ========== */
-        @media (min-width: 768px) {
-            .process-line { 
-                position: absolute; 
-                left: 24px; 
-                top: 48px; 
-                bottom: 0; 
-                width: 2px; 
-                background: linear-gradient(to bottom, #10b981, transparent); 
-            }
+        /* ========== PILLAR ICONS ========== */
+        .pillar-icon {
+            background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(16,185,129,0.2));
+            border: 1px solid rgba(6,182,212,0.3);
         }
         
         /* ========== ANIMATIONS ========== */
@@ -162,7 +167,7 @@
             content: ''; 
             position: absolute; 
             inset: -4px; 
-            background: #10b981; 
+            background: linear-gradient(135deg, #06b6d4, #10b981); 
             border-radius: inherit;
             animation: pulse-ring 2s ease-out infinite; 
             z-index: -1;
@@ -174,6 +179,14 @@
         }
         .trust-badge { 
             animation: float 3s ease-in-out infinite; 
+        }
+        
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .glow-effect {
+            animation: glow 3s ease-in-out infinite;
         }
         
         /* ========== AOS MOBILE FIX ========== */
@@ -202,6 +215,11 @@
             -webkit-appearance: none;
             appearance: none;
         }
+        
+        /* ========== DNA HELIX DECORATION ========== */
+        .dna-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2306b6d4' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -218,11 +236,11 @@
         </button>
         <nav class="mt-16 space-y-2">
             <a href="#fuer-wen" onclick="closeMobileMenu()" class="block py-4 px-4 text-base text-gray-300 hover:text-accent hover:bg-white/5 rounded-xl">Für wen?</a>
-            <a href="#methode" onclick="closeMobileMenu()" class="block py-4 px-4 text-base text-gray-300 hover:text-accent hover:bg-white/5 rounded-xl">Die Methode</a>
-            <a href="#prozess" onclick="closeMobileMenu()" class="block py-4 px-4 text-base text-gray-300 hover:text-accent hover:bg-white/5 rounded-xl">Ablauf</a>
+            <a href="#methode" onclick="closeMobileMenu()" class="block py-4 px-4 text-base text-gray-300 hover:text-accent hover:bg-white/5 rounded-xl">Die 5 Säulen</a>
+            <a href="#ablauf" onclick="closeMobileMenu()" class="block py-4 px-4 text-base text-gray-300 hover:text-accent hover:bg-white/5 rounded-xl">Online-Ablauf</a>
             <a href="#erfolge" onclick="closeMobileMenu()" class="block py-4 px-4 text-base text-gray-300 hover:text-accent hover:bg-white/5 rounded-xl">Erfolge</a>
             <a href="#faq" onclick="closeMobileMenu()" class="block py-4 px-4 text-base text-gray-300 hover:text-accent hover:bg-white/5 rounded-xl">FAQ</a>
-            <a href="#kontakt" onclick="closeMobileMenu()" class="block mt-4 py-4 bg-accent text-black text-center font-semibold rounded-xl">Kostenlos beraten</a>
+            <a href="#kontakt" onclick="closeMobileMenu()" class="block mt-4 py-4 gradient-bg text-black text-center font-semibold rounded-xl">Strategiegespräch</a>
         </nav>
     </div>
 
@@ -237,10 +255,10 @@
             <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-6">
                 <a href="#fuer-wen" class="text-sm text-gray-400 hover:text-white transition-colors">Für wen?</a>
-                <a href="#methode" class="text-sm text-gray-400 hover:text-white transition-colors">Methode</a>
+                <a href="#methode" class="text-sm text-gray-400 hover:text-white transition-colors">Die 5 Säulen</a>
                 <a href="#erfolge" class="text-sm text-gray-400 hover:text-white transition-colors">Erfolge</a>
                 <a href="#faq" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a>
-                <a href="#kontakt" class="px-5 py-2.5 bg-accent hover:bg-accent-light text-black text-sm font-semibold rounded-full transition-colors">Erstgespräch</a>
+                <a href="#kontakt" class="px-5 py-2.5 gradient-bg hover:opacity-90 text-black text-sm font-semibold rounded-full transition-opacity">Strategiegespräch</a>
             </nav>
             
             <!-- Mobile Menu Button -->
@@ -253,86 +271,106 @@
     </header>
 
     <!-- ==================== HERO ==================== -->
-    <section class="min-h-screen pt-16 relative flex items-center">
+    <section class="min-h-screen pt-16 relative flex items-center dna-pattern">
         <div class="absolute inset-0 z-0 overflow-hidden">
             <img src="https://smartfit-coaching.de/wp-content/uploads/2023/12/IMG_2142-scaled.jpg" 
-                 alt="" class="w-full h-full object-cover opacity-15" onload="this.classList.add('loaded')">
+                 alt="" class="w-full h-full object-cover opacity-10" onload="this.classList.add('loaded')">
             <div class="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-900/95 to-dark-900"></div>
+            <!-- Gradient orb effect -->
+            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl glow-effect"></div>
+            <div class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-accent2/10 rounded-full blur-3xl glow-effect" style="animation-delay: 1.5s;"></div>
         </div>
         
         <div class="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 sm:py-12">
             <div class="grid md:grid-cols-2 gap-6 md:gap-12 items-center">
                 <!-- Text Content -->
                 <div class="order-2 md:order-1 text-center md:text-left">
-                    <!-- Trust Badge -->
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs sm:text-sm font-medium mb-4 sm:mb-6 trust-badge" data-aos="fade-up">
-                        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>TÜV Rheinland zertifiziert</span>
+                    <!-- Trust Badges -->
+                    <div class="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3 mb-4 sm:mb-6" data-aos="fade-up">
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-accent/10 border border-accent/20 rounded-full text-accent text-xs font-medium trust-badge">
+                            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>TÜV zertifiziert</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-gray-300 text-xs font-medium">
+                            <span class="text-yellow-400">★</span>
+                            <span>4.9 Google</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-gray-300 text-xs font-medium">
+                            <span>🇩🇪</span>
+                            <span>Deutschlandweit</span>
+                        </div>
                     </div>
                     
                     <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 sm:mb-6" data-aos="fade-up" data-aos-delay="100">
-                        Endlich nachhaltig<br>
-                        <span class="gradient-text">fit & zufrieden</span>
+                        Länger leben.<br>
+                        <span class="gradient-text">Besser altern.</span>
                     </h1>
                     
                     <p class="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="150">
-                        Ohne Hungern. Ohne Verzicht. Ohne Jojo-Effekt.
+                        Longevity Coaching für <strong class="text-white">erfolgreiche Professionals 35+</strong>
                     </p>
                     
                     <p class="text-sm sm:text-base text-gray-400 mb-6 max-w-lg mx-auto md:mx-0" data-aos="fade-up" data-aos-delay="200">
-                        Personal Training in Trier & deutschlandweites Online-Coaching. 
-                        <strong class="text-white">350+ Menschen</strong> haben mit mir ihre Ziele erreicht.
+                        Senke dein biologisches Alter. Maximiere deine Healthspan. 
+                        Optimiere Energie, Schlaf & Performance – wissenschaftlich fundiert, 100% remote.
                     </p>
                     
-                    <!-- Social Proof -->
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 mb-6" data-aos="fade-up" data-aos-delay="250">
-                        <div class="flex items-center gap-2">
-                            <div class="flex -space-x-2">
-                                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👨</div>
-                                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👩</div>
-                                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👨</div>
-                            </div>
-                            <div class="text-xs sm:text-sm">
-                                <span class="text-white font-semibold">350+</span>
-                                <span class="text-gray-500"> Kunden</span>
-                            </div>
+                    <!-- Key Benefits -->
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 mb-6" data-aos="fade-up" data-aos-delay="250">
+                        <div class="flex items-center gap-2 text-sm">
+                            <div class="w-2 h-2 rounded-full gradient-bg"></div>
+                            <span class="text-gray-300">Biologisches Alter senken</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-yellow-400 text-sm">★★★★★</span>
-                            <span class="text-xs sm:text-sm text-gray-400">4.9 Google</span>
+                        <div class="flex items-center gap-2 text-sm">
+                            <div class="w-2 h-2 rounded-full gradient-bg"></div>
+                            <span class="text-gray-300">Mehr Energie</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <div class="w-2 h-2 rounded-full gradient-bg"></div>
+                            <span class="text-gray-300">Besserer Schlaf</span>
                         </div>
                     </div>
                     
                     <!-- CTA Buttons -->
                     <div class="flex flex-col gap-3 sm:flex-row sm:gap-4 justify-center md:justify-start" data-aos="fade-up" data-aos-delay="300">
-                        <a href="#kontakt" class="w-full sm:w-auto px-6 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl text-center transition-all text-sm sm:text-base">
-                            Kostenloses Erstgespräch
+                        <a href="#kontakt" class="w-full sm:w-auto px-6 py-4 gradient-bg hover:opacity-90 text-black font-semibold rounded-xl text-center transition-all text-sm sm:text-base">
+                            Kostenloses Strategiegespräch
                         </a>
-                        <a href="#erfolge" class="w-full sm:w-auto px-6 py-4 glass hover:bg-white/10 rounded-xl text-center transition-colors flex items-center justify-center gap-2 text-sm sm:text-base">
-                            <span>Erfolge ansehen</span>
+                        <a href="#methode" class="w-full sm:w-auto px-6 py-4 glass hover:bg-white/10 rounded-xl text-center transition-colors flex items-center justify-center gap-2 text-sm sm:text-base">
+                            <span>Die 5 Säulen entdecken</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </a>
                     </div>
                     
-                    <!-- Risk Reversal -->
-                    <p class="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-500 flex items-center justify-center md:justify-start gap-2" data-aos="fade-up" data-aos-delay="350">
-                        <svg class="w-4 h-4 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>100% unverbindlich – Keine Kosten</span>
-                    </p>
+                    <!-- Risk Reversal + Social Proof -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mt-4 sm:mt-6" data-aos="fade-up" data-aos-delay="350">
+                        <p class="text-xs sm:text-sm text-gray-500 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>100% unverbindlich</span>
+                        </p>
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-6 h-6 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👨</div>
+                                <div class="w-6 h-6 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👩</div>
+                                <div class="w-6 h-6 bg-accent/30 rounded-full border-2 border-dark-900 flex items-center justify-center text-xs">👨</div>
+                            </div>
+                            <span class="text-xs text-gray-500"><strong class="text-white">350+</strong> optimieren bereits</span>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Hero Image -->
                 <div class="order-1 md:order-2 flex justify-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative w-48 sm:w-64 md:w-full max-w-sm">
-                        <div class="absolute inset-0 bg-gradient-to-t from-accent/20 to-transparent rounded-3xl blur-3xl"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-accent/20 via-accent2/10 to-transparent rounded-3xl blur-3xl"></div>
                         <img src="https://smartfit-coaching.de/wp-content/uploads/2023/02/personal-trainer-trier-david-puschmann-smartfit-coaching.png" 
-                             alt="David Puschmann - Personal Trainer Trier" 
+                             alt="David Puschmann - Longevity Coach" 
                              class="relative w-full mx-auto"
                              onload="this.classList.add('loaded')">
                     </div>
@@ -341,75 +379,85 @@
         </div>
     </section>
 
-    <!-- ==================== FÜR WEN? ==================== -->
+    <!-- ==================== PROBLEM / FÜR WEN ==================== -->
     <section id="fuer-wen" class="py-12 sm:py-16 md:py-24 bg-dark-800">
         <div class="w-full max-w-6xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12">
-                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Passt das zu dir?</span>
+                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Erkennst du dich wieder?</span>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-                    Mein Coaching ist <span class="gradient-text">für dich</span>, wenn...
+                    Erfolgreich im Job, aber dein <span class="gradient-text">Körper hält nicht mit?</span>
                 </h2>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                <!-- Ideal für -->
+            <!-- Problem Cards -->
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12">
+                <!-- Problem Signs -->
                 <div class="glass rounded-2xl p-5 sm:p-6 md:p-8" data-aos="fade-up">
                     <div class="flex items-center gap-3 mb-4 sm:mb-6">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-xl sm:text-2xl">⚠️</span>
                         </div>
-                        <h3 class="text-base sm:text-lg font-semibold text-accent">Perfekt für dich</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-orange-400">Das kennst du vielleicht</h3>
                     </div>
                     <ul class="space-y-3 sm:space-y-4">
                         <li class="flex items-start gap-3">
-                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300">Du bist <strong class="text-white">berufstätig oder selbstständig</strong> und hast wenig Zeit</span>
+                            <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du bist <strong class="text-white">ständig müde</strong>, obwohl du genug schläfst</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300">Du hast schon <strong class="text-white">Diäten probiert</strong>, aber nichts hat funktioniert</span>
+                            <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
+                            <span class="text-sm sm:text-base text-gray-300">Dein <strong class="text-white">Energielevel am Nachmittag</strong> bricht ein</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300">Du willst <strong class="text-white">abnehmen oder fitter werden</strong> – ohne dein Leben umzukrempeln</span>
+                            <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du merkst, dass <strong class="text-white">Regeneration länger dauert</strong> als früher</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300">Du hast <strong class="text-white">Rücken- oder Nackenschmerzen</strong> durch Büroarbeit</span>
+                            <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du fragst dich: <strong class="text-white">"Ist das jetzt das Alter?"</strong></span>
                         </li>
                     </ul>
                 </div>
                 
-                <!-- Nicht ideal -->
-                <div class="glass rounded-2xl p-5 sm:p-6 md:p-8 opacity-70" data-aos="fade-up" data-aos-delay="100">
+                <!-- Target Audience -->
+                <div class="glass rounded-2xl p-5 sm:p-6 md:p-8" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex items-center gap-3 mb-4 sm:mb-6">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 pillar-icon rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-xl sm:text-2xl">🎯</span>
                         </div>
-                        <h3 class="text-base sm:text-lg font-semibold text-red-400">Eher nicht für dich</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-accent">Mein Coaching ist für dich</h3>
                     </div>
                     <ul class="space-y-3 sm:space-y-4">
                         <li class="flex items-start gap-3">
-                            <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
-                            <span class="text-sm sm:text-base text-gray-400">Du suchst eine <strong class="text-gray-300">Crash-Diät</strong> oder Wunderlösung</span>
+                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
+                            <span class="text-sm sm:text-base text-gray-300"><strong class="text-white">Unternehmer & Führungskräfte</strong> (35-55), die Peak Performance wollen</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
-                            <span class="text-sm sm:text-base text-gray-400">Du erwartest Ergebnisse <strong class="text-gray-300">ohne eigenen Einsatz</strong></span>
+                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du willst <strong class="text-white">optimieren, nicht reparieren</strong> – proaktiv statt reaktiv</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
-                            <span class="text-sm sm:text-base text-gray-400">Du willst <strong class="text-gray-300">Bodybuilding-Wettkämpfe</strong> gewinnen</span>
+                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du bist bereit, in deine <strong class="text-white">langfristige Gesundheit</strong> zu investieren</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
-                            <span class="text-sm sm:text-base text-gray-400">Du bist nicht bereit, 2x45 Min./Woche zu investieren</span>
+                            <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du suchst einen <strong class="text-white">wissenschaftlich fundierten</strong> Ansatz</span>
                         </li>
                     </ul>
+                </div>
+            </div>
+            
+            <!-- Key Insight -->
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <div class="glass rounded-2xl p-5 sm:p-6 md:p-8 gradient-border">
+                    <div class="text-3xl sm:text-4xl mb-3">🧬</div>
+                    <p class="text-base sm:text-lg text-gray-300 mb-2">
+                        <strong class="text-white">Die gute Nachricht:</strong> Dein chronologisches Alter ist nur eine Zahl.
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-400">
+                        Dein <strong class="gradient-text">biologisches Alter</strong> kannst du beeinflussen – und das ist, was zählt.
+                    </p>
                 </div>
             </div>
             
@@ -424,233 +472,320 @@
         </div>
     </section>
 
-    <!-- ==================== DIE METHODE ==================== -->
-    <section id="methode" class="py-12 sm:py-16 md:py-24 bg-dark-900">
+    <!-- ==================== DIE 5 SÄULEN ==================== -->
+    <section id="methode" class="py-12 sm:py-16 md:py-24 bg-dark-900 dna-pattern">
         <div class="w-full max-w-6xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12 md:mb-16">
-                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Die Smartfit-Methode</span>
+                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Die Longevity-Methode</span>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-                    Warum es bei mir <span class="gradient-text">funktioniert</span>
+                    Die <span class="gradient-text">5 Säulen</span> der Langlebigkeit
                 </h2>
                 <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150">
-                    Kein Hungern, kein Verzicht – stattdessen ein System, das in deinen Alltag passt
+                    Wissenschaftlich fundiert. Individuell angepasst. Nachhaltig integriert.
                 </p>
             </div>
             
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-                <!-- Säule 1 -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <!-- Säule 1: Ernährung -->
                 <div class="glass rounded-2xl p-5 sm:p-6 card-hover" data-aos="fade-up">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-accent to-accent-dark rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
+                        🥗
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Ernährung</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Metabolische Flexibilität, Autophagie-Aktivierung, optimale Makros für deine Ziele.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Time-Restricted Eating</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Blutzucker-Kontrolle</span>
+                    </div>
+                </div>
+                
+                <!-- Säule 2: Bewegung -->
+                <div class="glass rounded-2xl p-5 sm:p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
                         💪
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Effektives Training</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">2x 45 Minuten pro Woche reichen aus. Kraft, Ausdauer und Beweglichkeit – alles in einem.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Bewegung</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Krafttraining für Muskelmasse & Knochendichte. Zone 2 Cardio für metabolische Gesundheit.</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Muskelaufbau</span>
-                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Fettabbau</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Muskelerhalt</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">VO2max Training</span>
                     </div>
                 </div>
                 
-                <!-- Säule 2 -->
-                <div class="glass rounded-2xl p-5 sm:p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-accent to-accent-dark rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
-                        🍕
+                <!-- Säule 3: Schlaf -->
+                <div class="glass rounded-2xl p-5 sm:p-6 card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
+                        🌙
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Flexible Ernährung</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Iss weiterhin Pizza, Pasta und trink auch mal ein Bier. Keine verbotenen Lebensmittel.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Schlaf</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Schlafqualität optimieren für Regeneration, HGH-Ausschüttung und kognitive Performance.</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Keine Verbote</span>
-                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Alltagstauglich</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Deep Sleep</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Circadian Rhythm</span>
                     </div>
                 </div>
                 
-                <!-- Säule 3 -->
-                <div class="glass rounded-2xl p-5 sm:p-6 card-hover sm:col-span-2 md:col-span-1" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-accent to-accent-dark rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
-                        🎯
+                <!-- Säule 4: Stress-Management -->
+                <div class="glass rounded-2xl p-5 sm:p-6 card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
+                        🧘
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">1:1 Betreuung</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Kein Gruppenkurs, kein Programm von der Stange. Alles individuell auf dich zugeschnitten.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Stress-Management</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">HRV-Training, Atemtechniken, bewusste Erholung. Chronischer Stress beschleunigt das Altern.</p>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Persönlich</span>
-                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Wöchentliche Calls</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">HRV-Optimierung</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Recovery</span>
+                    </div>
+                </div>
+                
+                <!-- Säule 5: Biomarker-Tracking -->
+                <div class="glass rounded-2xl p-5 sm:p-6 card-hover sm:col-span-2 lg:col-span-1" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
+                        📊
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Biomarker-Tracking</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Regelmäßige Blutanalysen & Wearable-Daten. Was man misst, kann man verbessern.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Blutbild-Analyse</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Biologisches Alter</span>
+                    </div>
+                </div>
+                
+                <!-- Bonus: Mindset -->
+                <div class="glass rounded-2xl p-5 sm:p-6 card-hover lg:col-span-1" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
+                        🧠
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Mindset & Habits</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Gewohnheiten aufbauen, die bleiben. Accountability & konstante Optimierung.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Habit-Stacking</span>
+                        <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">1:1 Accountability</span>
                     </div>
                 </div>
             </div>
             
-            <!-- Zusatz-Info -->
+            <!-- Key Benefit -->
             <div class="mt-8 sm:mt-12 glass rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col sm:flex-row items-center gap-4 sm:gap-6" data-aos="fade-up">
                 <div class="flex-shrink-0">
-                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-accent/20 rounded-full flex items-center justify-center text-2xl sm:text-3xl">💼</div>
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 pillar-icon rounded-full flex items-center justify-center text-2xl sm:text-3xl">⚡</div>
                 </div>
                 <div class="text-center sm:text-left">
-                    <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2">Für Selbstständige: Als Betriebsausgabe absetzbar</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm">Personal Training ist für Unternehmer steuerlich absetzbar – deine Gesundheit als Investment.</p>
+                    <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2">Das Ergebnis: Mehr Lebensjahre – und mehr Leben in den Jahren</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm">Keine kurzfristigen Diäten. Sondern ein System, das dich die nächsten Jahrzehnte begleitet.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== DER PROZESS ==================== -->
-    <section id="prozess" class="py-12 sm:py-16 md:py-24 bg-dark-800">
+    <!-- ==================== ONLINE COACHING ABLAUF ==================== -->
+    <section id="ablauf" class="py-12 sm:py-16 md:py-24 bg-dark-800">
         <div class="w-full max-w-4xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12">
-                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">So läuft's ab</span>
+                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">100% Remote</span>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-                    In 4 Schritten zu <span class="gradient-text">deinem Ziel</span>
+                    So funktioniert das <span class="gradient-text">Online-Coaching</span>
                 </h2>
+                <p class="text-sm sm:text-base text-gray-400 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="150">
+                    Deutschlandweit. Flexibel. Genauso effektiv wie vor Ort.
+                </p>
             </div>
             
-            <div class="relative">
+            <div class="space-y-4 sm:space-y-6">
                 <!-- Step 1 -->
-                <div class="relative flex gap-4 sm:gap-6 mb-4 sm:mb-6" data-aos="fade-up">
-                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-accent rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">1</div>
+                <div class="relative flex gap-4 sm:gap-6" data-aos="fade-up">
+                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 gradient-bg rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">1</div>
                     <div class="glass rounded-2xl p-4 sm:p-6 flex-1 min-w-0">
-                        <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2">Kostenloses Erstgespräch</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm">Wir lernen uns kennen, ich höre dir zu und wir klären, ob wir zusammenpassen. Kein Verkaufsdruck.</p>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xl">🎥</span>
+                            <h3 class="text-base sm:text-lg font-semibold">Strategiegespräch (kostenlos)</h3>
+                        </div>
+                        <p class="text-gray-400 text-xs sm:text-sm">30 Min. Video-Call: Wir analysieren deine Situation, Ziele und klären, ob Longevity Coaching für dich passt.</p>
                     </div>
                 </div>
                 
                 <!-- Step 2 -->
-                <div class="relative flex gap-4 sm:gap-6 mb-4 sm:mb-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-accent/80 rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">2</div>
+                <div class="relative flex gap-4 sm:gap-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 gradient-bg opacity-90 rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">2</div>
                     <div class="glass rounded-2xl p-4 sm:p-6 flex-1 min-w-0">
-                        <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2">Analyse & Planung</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm">Detaillierte Analyse deiner Situation. Daraus entsteht dein persönlicher Plan.</p>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xl">🩸</span>
+                            <h3 class="text-base sm:text-lg font-semibold">Baseline-Analyse</h3>
+                        </div>
+                        <p class="text-gray-400 text-xs sm:text-sm">Blutbild-Empfehlung, Wearable-Setup, ausführlicher Fragebogen. Wir messen deinen Status Quo.</p>
                     </div>
                 </div>
                 
                 <!-- Step 3 -->
-                <div class="relative flex gap-4 sm:gap-6 mb-4 sm:mb-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-accent/60 rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">3</div>
+                <div class="relative flex gap-4 sm:gap-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 gradient-bg opacity-80 rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">3</div>
                     <div class="glass rounded-2xl p-4 sm:p-6 flex-1 min-w-0">
-                        <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2">Training & Coaching</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm">2x wöchentliches Training (vor Ort oder online) + Ernährungsanpassung.</p>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xl">📱</span>
+                            <h3 class="text-base sm:text-lg font-semibold">Wöchentliche Check-ins</h3>
+                        </div>
+                        <p class="text-gray-400 text-xs sm:text-sm">Video-Call + App-Tracking: Trainingspläne, Ernährungsanpassungen, Schlaf-Optimierung. Alles in einer App.</p>
                     </div>
                 </div>
                 
                 <!-- Step 4 -->
                 <div class="relative flex gap-4 sm:gap-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-accent/40 rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">4</div>
+                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 gradient-bg opacity-70 rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">4</div>
                     <div class="glass rounded-2xl p-4 sm:p-6 flex-1 min-w-0">
-                        <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2">Ergebnisse feiern</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm">Regelmäßige Check-ins und Anpassungen. Nach 3-6 Monaten wirst du dich nicht wiedererkennen.</p>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xl">📊</span>
+                            <h3 class="text-base sm:text-lg font-semibold">Monatliche Biomarker-Reviews</h3>
+                        </div>
+                        <p class="text-gray-400 text-xs sm:text-sm">Deep-Dive in deine Daten: HRV-Trends, Schlafqualität, Körperkomposition. Kontinuierliche Optimierung.</p>
                     </div>
+                </div>
+                
+                <!-- Step 5 -->
+                <div class="relative flex gap-4 sm:gap-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 gradient-bg opacity-60 rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg z-10">5</div>
+                    <div class="glass rounded-2xl p-4 sm:p-6 flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-xl">🎯</span>
+                            <h3 class="text-base sm:text-lg font-semibold">Quartalsmessung</h3>
+                        </div>
+                        <p class="text-gray-400 text-xs sm:text-sm">Erneute Blutanalyse nach 3-6 Monaten. Biologisches Alter vergleichen. Erfolge feiern.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tools/Tech Stack -->
+            <div class="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4" data-aos="fade-up">
+                <div class="glass rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">📹</div>
+                    <div class="text-xs font-medium">Video-Calls</div>
+                    <div class="text-xs text-gray-500">Zoom/Meet</div>
+                </div>
+                <div class="glass rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">📱</div>
+                    <div class="text-xs font-medium">Coaching-App</div>
+                    <div class="text-xs text-gray-500">Tracking & Pläne</div>
+                </div>
+                <div class="glass rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">⌚</div>
+                    <div class="text-xs font-medium">Wearables</div>
+                    <div class="text-xs text-gray-500">Apple/Garmin/Oura</div>
+                </div>
+                <div class="glass rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">💬</div>
+                    <div class="text-xs font-medium">Direkt-Support</div>
+                    <div class="text-xs text-gray-500">WhatsApp/Chat</div>
                 </div>
             </div>
             
             <!-- CTA -->
             <div class="text-center mt-8 sm:mt-12" data-aos="fade-up">
-                <a href="#kontakt" class="inline-flex items-center gap-2 px-6 sm:px-8 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl transition-all text-sm sm:text-base">
-                    Erstgespräch vereinbaren
+                <a href="#kontakt" class="inline-flex items-center gap-2 px-6 sm:px-8 py-4 gradient-bg hover:opacity-90 text-black font-semibold rounded-xl transition-all text-sm sm:text-base">
+                    Kostenloses Strategiegespräch
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
+                <p class="text-xs text-gray-500 mt-3">Funktioniert von überall in Deutschland</p>
             </div>
         </div>
     </section>
 
-    <!-- ==================== ERFOLGE ==================== -->
+    <!-- ==================== ERFOLGE / TRANSFORMATIONEN ==================== -->
     <section id="erfolge" class="py-12 sm:py-16 md:py-24 bg-dark-900">
         <div class="w-full max-w-6xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12">
                 <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Echte Ergebnisse</span>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <span class="gradient-text">Transformationen</span>, die sprechen
+                    <span class="gradient-text">Longevity-Erfolge</span>, die sprechen
                 </h2>
                 <p class="text-sm sm:text-base text-gray-400" data-aos="fade-up" data-aos-delay="150">
-                    Keine Models – echte Menschen mit echten Geschichten
+                    Nicht nur Gewicht – sondern Energie, Schlaf, Biomarker, Lebensqualität
                 </p>
             </div>
             
             <!-- Featured Transformations -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
                 <!-- Transformation 1: Michael -->
-                <a href="erfolge/michael.html" class="glass rounded-2xl overflow-hidden card-hover block" data-aos="fade-up">
+                <div class="glass rounded-2xl overflow-hidden card-hover" data-aos="fade-up">
                     <div class="relative aspect-[4/3]">
                         <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-personal-training-trier.png" 
                              alt="Michael - Transformation" class="w-full h-full object-cover" onload="this.classList.add('loaded')">
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3 px-2 sm:px-3 py-1 bg-accent text-black text-xs sm:text-sm font-bold rounded-full">-35 kg</div>
+                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3 flex flex-col gap-1">
+                            <span class="px-2 sm:px-3 py-1 gradient-bg text-black text-xs sm:text-sm font-bold rounded-full">-35 kg</span>
+                            <span class="px-2 sm:px-3 py-1 bg-black/70 text-accent text-xs font-medium rounded-full text-center">-8 Jahre bio. Alter</span>
+                        </div>
                     </div>
                     <div class="p-4 sm:p-5">
                         <div class="flex items-center gap-1 text-yellow-400 text-xs sm:text-sm mb-2">★★★★★</div>
-                        <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Michael, 42</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3">"35 kg in 12 Monaten – und ich konnte weiter essen, was ich wollte."</p>
+                        <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Michael, 47 | Unternehmer</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3">"Nicht nur 35 kg runter – mein HbA1c ist jetzt optimal, ich schlafe 7,5h durch, und mein Energielevel ist wie mit 30."</p>
                         <div class="flex flex-wrap gap-1 sm:gap-2 text-xs">
-                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Unternehmer</span>
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Biomarker optimiert</span>
                             <span class="px-2 py-1 bg-white/5 text-gray-400 rounded">12 Monate</span>
                         </div>
-                        <div class="mt-3 text-accent text-xs font-medium flex items-center gap-1">Geschichte lesen <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
                     </div>
-                </a>
+                </div>
                 
                 <!-- Transformation 2: Sandra -->
-                <a href="erfolge/sandra.html" class="glass rounded-2xl overflow-hidden card-hover block" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass rounded-2xl overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative aspect-[4/3]">
                         <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-smartfit-coaching-1.png" 
                              alt="Sandra - Transformation" class="w-full h-full object-cover" onload="this.classList.add('loaded')">
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3 px-2 sm:px-3 py-1 bg-accent text-black text-xs sm:text-sm font-bold rounded-full">-18 kg</div>
+                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3 flex flex-col gap-1">
+                            <span class="px-2 sm:px-3 py-1 gradient-bg text-black text-xs sm:text-sm font-bold rounded-full">+40% Energie</span>
+                            <span class="px-2 sm:px-3 py-1 bg-black/70 text-accent text-xs font-medium rounded-full text-center">Schlaf optimiert</span>
+                        </div>
                     </div>
                     <div class="p-4 sm:p-5">
                         <div class="flex items-center gap-1 text-yellow-400 text-xs sm:text-sm mb-2">★★★★★</div>
-                        <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Sandra, 38</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3">"Nach 2 Kindern fühle ich mich fitter als mit 25!"</p>
+                        <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Sandra, 41 | Führungskraft</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3">"Endlich kein 15-Uhr-Tief mehr. Mein Deep Sleep hat sich verdoppelt, und ich wache erholt auf."</p>
                         <div class="flex flex-wrap gap-1 sm:gap-2 text-xs">
-                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Mutter</span>
-                            <span class="px-2 py-1 bg-white/5 text-gray-400 rounded">8 Monate</span>
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Sleep Score 90+</span>
+                            <span class="px-2 py-1 bg-white/5 text-gray-400 rounded">6 Monate</span>
                         </div>
-                        <div class="mt-3 text-accent text-xs font-medium flex items-center gap-1">Geschichte lesen <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
                     </div>
-                </a>
+                </div>
                 
                 <!-- Transformation 3: Thomas -->
-                <a href="erfolge/thomas.html" class="glass rounded-2xl overflow-hidden card-hover block sm:col-span-2 lg:col-span-1" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass rounded-2xl overflow-hidden card-hover sm:col-span-2 lg:col-span-1" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative aspect-[4/3]">
                         <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/kundenerfolg-smartfit-coaching-luxemburg-1.png" 
                              alt="Thomas - Transformation" class="w-full h-full object-cover" onload="this.classList.add('loaded')">
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3 px-2 sm:px-3 py-1 bg-accent text-black text-xs sm:text-sm font-bold rounded-full">-50 kg</div>
+                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3 flex flex-col gap-1">
+                            <span class="px-2 sm:px-3 py-1 gradient-bg text-black text-xs sm:text-sm font-bold rounded-full">-50 kg</span>
+                            <span class="px-2 sm:px-3 py-1 bg-black/70 text-accent text-xs font-medium rounded-full text-center">Schmerzfrei</span>
+                        </div>
                     </div>
                     <div class="p-4 sm:p-5">
                         <div class="flex items-center gap-1 text-yellow-400 text-xs sm:text-sm mb-2">★★★★★</div>
-                        <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Thomas, 51</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3">"50 kg weniger und endlich schmerzfrei. Unbezahlbar."</p>
+                        <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Thomas, 54 | Geschäftsführer</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3">"Mit 54 fitter als mit 40. Keine Rückenschmerzen mehr, Cholesterin im grünen Bereich, und ich halte mühelos mein Gewicht."</p>
                         <div class="flex flex-wrap gap-1 sm:gap-2 text-xs">
-                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Geschäftsführer</span>
+                            <span class="px-2 py-1 bg-accent/10 text-accent rounded">Alle Blutwerte optimal</span>
                             <span class="px-2 py-1 bg-white/5 text-gray-400 rounded">18 Monate</span>
                         </div>
-                        <div class="mt-3 text-accent text-xs font-medium flex items-center gap-1">Geschichte lesen <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
                     </div>
-                </a>
-            </div>
-            
-            <!-- View All Button -->
-            <div class="text-center" data-aos="fade-up">
-                <a href="erfolge.html" class="inline-flex items-center gap-2 px-5 sm:px-6 py-3 glass hover:bg-white/10 rounded-xl transition-colors text-sm sm:text-base">
-                    Alle Erfolgsgeschichten
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                </a>
+                </div>
             </div>
             
             <!-- Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-10 sm:mt-16" data-aos="fade-up">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" data-aos="fade-up">
                 <div class="text-center p-4 sm:p-6 glass rounded-2xl">
                     <div class="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1">350+</div>
-                    <div class="text-xs sm:text-sm text-gray-400">Kunden</div>
+                    <div class="text-xs sm:text-sm text-gray-400">Kunden optimiert</div>
                 </div>
                 <div class="text-center p-4 sm:p-6 glass rounded-2xl">
                     <div class="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1">10+</div>
-                    <div class="text-xs sm:text-sm text-gray-400">Jahre</div>
+                    <div class="text-xs sm:text-sm text-gray-400">Jahre Erfahrung</div>
                 </div>
                 <div class="text-center p-4 sm:p-6 glass rounded-2xl">
                     <div class="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1">4.9</div>
                     <div class="text-xs sm:text-sm text-gray-400">Google ★</div>
                 </div>
                 <div class="text-center p-4 sm:p-6 glass rounded-2xl">
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1">93%</div>
-                    <div class="text-xs sm:text-sm text-gray-400">Erfolgsquote</div>
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1">-5.2</div>
+                    <div class="text-xs sm:text-sm text-gray-400">Jahre Ø bio. Alter</div>
                 </div>
             </div>
         </div>
@@ -662,31 +797,36 @@
             <div class="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
                 <div class="order-2 md:order-1 flex justify-center" data-aos="fade-up">
                     <div class="relative w-48 sm:w-56 md:w-72 lg:w-80">
-                        <div class="absolute -inset-4 bg-gradient-to-tr from-accent/20 to-transparent rounded-3xl blur-2xl"></div>
+                        <div class="absolute -inset-4 bg-gradient-to-tr from-accent/20 via-accent2/10 to-transparent rounded-3xl blur-2xl"></div>
                         <img src="https://smartfit-coaching.de/wp-content/uploads/2022/10/david-puschmann-personal-trainer-1.png" 
                              alt="David Puschmann" class="relative w-full rounded-2xl" onload="this.classList.add('loaded')">
                     </div>
                 </div>
                 <div class="order-1 md:order-2" data-aos="fade-up">
-                    <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider">Dein Coach</span>
+                    <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider">Dein Longevity Coach</span>
                     <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-4 sm:mb-6">
                         Hi, ich bin <span class="gradient-text">David</span>
                     </h2>
                     <div class="space-y-3 sm:space-y-4 text-gray-400 text-sm sm:text-base">
                         <p>
                             Als einer von nur <strong class="text-white">60 TÜV-zertifizierten Personal Trainern</strong> in der DACH-Region 
-                            weiß ich genau, was funktioniert.
+                            verbinde ich wissenschaftlich fundiertes Training mit modernsten Longevity-Protokollen.
                         </p>
                         <p>
-                            In den letzten 10 Jahren habe ich über 350 Menschen geholfen, ihre Ziele zu erreichen. 
-                            Mein Fokus: <strong class="text-white">Nachhaltige Ergebnisse</strong>, die bleiben.
+                            In den letzten 10 Jahren habe ich über <strong class="text-white">350 Professionals</strong> geholfen, nicht nur fitter zu werden – 
+                            sondern ihr <strong class="text-white">biologisches Alter messbar zu senken</strong>.
+                        </p>
+                        <p>
+                            Meine Mission: Dir die Tools und das Wissen geben, um die nächsten Jahrzehnte mit 
+                            <strong class="text-white">maximaler Energie und Lebensqualität</strong> zu erleben.
                         </p>
                     </div>
                     
                     <div class="flex flex-wrap gap-2 mt-4 sm:mt-6">
-                        <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">TÜV zertifiziert</span>
-                        <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">Fitnessökonom</span>
-                        <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">10+ Jahre</span>
+                        <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">TÜV Rheinland zertifiziert</span>
+                        <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">Fitnessökonom (B.A.)</span>
+                        <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">Longevity Specialist</span>
+                        <span class="px-2 sm:px-3 py-1 sm:py-1.5 bg-accent/10 text-accent text-xs rounded-full font-medium">10+ Jahre Erfahrung</span>
                     </div>
                 </div>
             </div>
@@ -699,33 +839,33 @@
             <div class="text-center mb-8 sm:mb-12">
                 <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Deine Investition</span>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-                    So individuell wie <span class="gradient-text">du</span>
+                    Investiere in das Wichtigste: <span class="gradient-text">Dich selbst</span>
                 </h2>
                 <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150">
-                    Kein Pauschalpreis, kein Programm von der Stange. Dein Coaching wird genau auf dich zugeschnitten – und der Preis auch.
+                    Longevity ist keine Ausgabe – es ist eine Investition mit dem höchsten ROI deines Lebens.
                 </p>
             </div>
             
             <div class="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8" data-aos="fade-up">
                 <!-- Quote -->
                 <div class="text-center mb-6 sm:mb-8">
-                    <div class="text-3xl sm:text-4xl mb-3">💬</div>
+                    <div class="text-3xl sm:text-4xl mb-3">🧬</div>
                     <p class="text-base sm:text-lg text-gray-300 italic max-w-xl mx-auto">
-                        "Die beste Investition, die ich je gemacht habe – in mich selbst."
+                        "Was nützt finanzieller Erfolg, wenn du nicht gesund genug bist, ihn zu genießen?"
                     </p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2">— Das sagen 93% meiner Kunden</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2">— Die Frage, die meine Kunden zum Umdenken bringt</p>
                 </div>
                 
                 <div class="grid sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                     <div class="text-center p-4 rounded-xl bg-white/5">
                         <div class="text-2xl mb-2">🎯</div>
-                        <div class="text-sm font-medium mb-1">Ziel-basiert</div>
-                        <div class="text-xs text-gray-400">Preis richtet sich nach deinem Ziel</div>
+                        <div class="text-sm font-medium mb-1">Individuell</div>
+                        <div class="text-xs text-gray-400">Preis basiert auf deinen Zielen & Intensität</div>
                     </div>
                     <div class="text-center p-4 rounded-xl bg-white/5">
-                        <div class="text-2xl mb-2">⏱️</div>
-                        <div class="text-sm font-medium mb-1">Flexibel</div>
-                        <div class="text-xs text-gray-400">Kein Jahresvertrag nötig</div>
+                        <div class="text-2xl mb-2">📈</div>
+                        <div class="text-sm font-medium mb-1">Messbar</div>
+                        <div class="text-xs text-gray-400">Biomarker-Tracking zeigt deinen ROI</div>
                     </div>
                     <div class="text-center p-4 rounded-xl bg-white/5">
                         <div class="text-2xl mb-2">💼</div>
@@ -736,15 +876,15 @@
                 
                 <div class="text-center">
                     <p class="text-sm text-gray-400 mb-4">
-                        Im kostenlosen Erstgespräch klären wir deine Ziele – und ich sage dir transparent, was dein individuelles Coaching kostet.
+                        Im kostenlosen Strategiegespräch analysieren wir deine Ziele – und ich sage dir transparent, was dein individuelles Longevity-Programm kostet.
                     </p>
-                    <a href="#kontakt" class="inline-flex items-center gap-2 px-6 sm:px-8 py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl transition-all text-sm sm:text-base">
-                        Jetzt Erstgespräch vereinbaren
+                    <a href="#kontakt" class="inline-flex items-center gap-2 px-6 sm:px-8 py-4 gradient-bg hover:opacity-90 text-black font-semibold rounded-xl transition-all text-sm sm:text-base">
+                        Kostenloses Strategiegespräch
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
                     </a>
-                    <p class="text-xs text-gray-500 mt-3">100% unverbindlich • Kein Verkaufsdruck • 15 Minuten</p>
+                    <p class="text-xs text-gray-500 mt-3">100% unverbindlich • Kein Verkaufsdruck • 30 Minuten</p>
                 </div>
             </div>
         </div>
@@ -756,7 +896,7 @@
             <div class="text-center mb-8 sm:mb-12">
                 <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Häufige Fragen</span>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-                    Das wirst du dich <span class="gradient-text">fragen</span>
+                    Alles über <span class="gradient-text">Longevity Coaching</span>
                 </h2>
             </div>
             
@@ -764,14 +904,14 @@
                 <!-- FAQ 1 -->
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
-                        <span class="font-medium text-sm sm:text-base">"Ich habe keine Zeit"</span>
+                        <span class="font-medium text-sm sm:text-base">"Was genau ist Longevity?"</span>
                         <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="faq-answer">
                         <div class="px-4 sm:px-6 pb-4 text-gray-400 text-xs sm:text-sm">
-                            2x 45 Minuten pro Woche – das sind weniger als 2% deiner Zeit. Wir passen die Termine an deinen Alltag an.
+                            Longevity ist die Wissenschaft des gesunden Alterns. Das Ziel: Nicht nur länger leben, sondern die "Healthspan" – die Jahre in voller Gesundheit und Leistungsfähigkeit – maximieren. Es geht um die Optimierung von Ernährung, Bewegung, Schlaf, Stress und Biomarkern.
                         </div>
                     </div>
                 </div>
@@ -779,14 +919,14 @@
                 <!-- FAQ 2 -->
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
-                        <span class="font-medium text-sm sm:text-base">"Ich habe schon alles probiert"</span>
+                        <span class="font-medium text-sm sm:text-base">"Ab welchem Alter macht das Sinn?"</span>
                         <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="faq-answer">
                         <div class="px-4 sm:px-6 pb-4 text-gray-400 text-xs sm:text-sm">
-                            Der Unterschied: Ich passe das Programm kontinuierlich an und halte dich accountable. 93% meiner Kunden erreichen ihr Ziel.
+                            Der optimale Zeitpunkt ist 35-55, wenn Prävention noch am effektivsten ist. Aber: Es ist nie zu spät. Meine ältesten Kunden sind 60+ und erzielen beeindruckende Ergebnisse. Je früher du startest, desto größer der Effekt.
                         </div>
                     </div>
                 </div>
@@ -794,14 +934,14 @@
                 <!-- FAQ 3 -->
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
-                        <span class="font-medium text-sm sm:text-base">"Ist das was für Anfänger?"</span>
+                        <span class="font-medium text-sm sm:text-base">"Brauche ich Bluttests?"</span>
                         <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="faq-answer">
                         <div class="px-4 sm:px-6 pb-4 text-gray-400 text-xs sm:text-sm">
-                            Absolut! Die meisten meiner Kunden starten bei Null. Ich hole dich dort ab, wo du stehst.
+                            Empfohlen, aber nicht zwingend. Ein Basis-Blutbild vom Hausarzt reicht für den Start. Ich empfehle spezifische Marker (HbA1c, Lipidprofil, Vitamin D, etc.) und zeige dir, wie du sie bekommst. Die Kosten trägt oft die Krankenkasse.
                         </div>
                     </div>
                 </div>
@@ -809,14 +949,14 @@
                 <!-- FAQ 4 -->
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
-                        <span class="font-medium text-sm sm:text-base">"Muss ich auf alles verzichten?"</span>
+                        <span class="font-medium text-sm sm:text-base">"Wie läuft Online-Coaching konkret ab?"</span>
                         <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="faq-answer">
                         <div class="px-4 sm:px-6 pb-4 text-gray-400 text-xs sm:text-sm">
-                            Nein! Pizza, Restaurant, auch mal ein Bier – alles erlaubt. Es geht um Balance, nicht um Verbote.
+                            Wöchentliche Video-Calls (30-45 Min.), tägliches Tracking via App, direkter WhatsApp-Support bei Fragen. Deine Trainingspläne sind in der App, ich sehe deine Wearable-Daten (optional), und wir passen kontinuierlich an. 100% flexibel, 100% effektiv.
                         </div>
                     </div>
                 </div>
@@ -824,14 +964,44 @@
                 <!-- FAQ 5 -->
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
-                        <span class="font-medium text-sm sm:text-base">"Was wenn ich nicht in Trier wohne?"</span>
+                        <span class="font-medium text-sm sm:text-base">"Funktioniert das wirklich remote?"</span>
                         <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="faq-answer">
                         <div class="px-4 sm:px-6 pb-4 text-gray-400 text-xs sm:text-sm">
-                            Kein Problem! Online-Coaching funktioniert genauso gut. Viele meiner erfolgreichsten Kunden coache ich komplett remote.
+                            Absolut. Viele meiner erfolgreichsten Transformationen sind 100% remote. Der Vorteil: Mehr Flexibilität, kein Anfahrtsweg, regelmäßigere Check-ins. Die Ergebnisse sprechen für sich – schau dir die Erfolgsgeschichten an.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 6 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
+                        <span class="font-medium text-sm sm:text-base">"Wieviel Zeit muss ich investieren?"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-4 sm:px-6 pb-4 text-gray-400 text-xs sm:text-sm">
+                            2-3x Training à 45-60 Min. pro Woche + der wöchentliche Call (30 Min.). Das sind weniger als 3% deiner Wachzeit. Die Ernährungs- und Lifestyle-Optimierungen integrieren wir in deinen bestehenden Alltag – kein kompletter Umbruch nötig.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ 7 -->
+                <div class="faq-item glass rounded-xl overflow-hidden">
+                    <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
+                        <span class="font-medium text-sm sm:text-base">"Was kostet das?"</span>
+                        <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-4 sm:px-6 pb-4 text-gray-400 text-xs sm:text-sm">
+                            Individuell – je nach Intensität und Zielen. Im kostenlosen Strategiegespräch klären wir, was für dich sinnvoll ist, und ich nenne dir einen transparenten Preis. Kein Kleingedrucktes, keine versteckten Kosten. Für Unternehmer oft steuerlich absetzbar.
                         </div>
                     </div>
                 </div>
@@ -845,10 +1015,10 @@
             <div class="text-center mb-8 sm:mb-12">
                 <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Jetzt starten</span>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
-                    Bereit für deine <span class="gradient-text">Transformation</span>?
+                    Dein <span class="gradient-text">Strategiegespräch</span>
                 </h2>
                 <p class="text-sm sm:text-base text-gray-400" data-aos="fade-up" data-aos-delay="150">
-                    Kostenloses Erstgespräch – 15 Min., ohne Verkaufsdruck
+                    30 Min., 100% kostenlos, 0% Verkaufsdruck
                 </p>
             </div>
             
@@ -885,40 +1055,57 @@
                     </div>
                     
                     <div>
-                        <label class="block text-xs sm:text-sm text-gray-400 mb-1.5 sm:mb-2">Was ist dein Ziel?</label>
+                        <label class="block text-xs sm:text-sm text-gray-400 mb-1.5 sm:mb-2">Was ist dein Hauptziel?</label>
                         <select name="ziel" class="w-full px-4 py-3 sm:py-3.5 bg-dark-700 border border-white/10 rounded-xl text-white text-sm sm:text-base focus:border-accent focus:outline-none">
                             <option value="">Bitte wählen...</option>
-                            <option>Abnehmen</option>
-                            <option>Muskelaufbau</option>
-                            <option>Fitter werden</option>
-                            <option>Schmerzen loswerden</option>
+                            <option>Mehr Energie im Alltag</option>
+                            <option>Besserer Schlaf</option>
+                            <option>Biologisches Alter senken</option>
+                            <option>Gewicht optimieren</option>
+                            <option>Biomarker verbessern</option>
+                            <option>Allgemeine Gesundheitsoptimierung</option>
                         </select>
                     </div>
                     
+                    <div>
+                        <label class="block text-xs sm:text-sm text-gray-400 mb-1.5 sm:mb-2">Erzähl mir mehr (optional)</label>
+                        <textarea name="nachricht" rows="3"
+                                  class="w-full px-4 py-3 sm:py-3.5 bg-dark-700 border border-white/10 rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:border-accent focus:outline-none resize-none"
+                                  placeholder="Was beschäftigt dich aktuell? Was möchtest du verändern?"></textarea>
+                    </div>
+                    
                     <button type="submit" 
-                            class="relative w-full py-4 bg-accent hover:bg-accent-light text-black font-semibold rounded-xl transition-all text-sm sm:text-base">
-                        Kostenloses Erstgespräch anfragen
+                            class="relative w-full py-4 gradient-bg hover:opacity-90 text-black font-semibold rounded-xl transition-all text-sm sm:text-base">
+                        Kostenloses Strategiegespräch anfragen
                     </button>
                     
                     <div class="flex items-start gap-2 sm:gap-3 text-xs text-gray-500">
                         <svg class="w-4 h-4 text-accent flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
                         </svg>
-                        <span>Deine Daten sind sicher. Kein Spam.</span>
+                        <span>Deine Daten sind sicher. Kein Spam. Ich melde mich innerhalb von 24h.</span>
                     </div>
                 </form>
             </div>
             
             <!-- Direkter Kontakt -->
             <div class="mt-8 sm:mt-10 text-center" data-aos="fade-up">
-                <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Oder direkt anrufen:</p>
+                <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Oder direkt Kontakt aufnehmen:</p>
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                     <a href="tel:+4917888387851" class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 glass rounded-xl hover:bg-white/10 text-sm sm:text-base">
                         <span>📞</span> 0178 883 87 851
                     </a>
-                    <a href="https://wa.me/4917888387851" target="_blank" class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl text-sm sm:text-base">
+                    <a href="https://wa.me/4917888387851?text=Hi%20David%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Longevity%20Coaching." target="_blank" class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl text-sm sm:text-base">
                         <span>💬</span> WhatsApp
                     </a>
+                </div>
+            </div>
+            
+            <!-- Urgency / Limited Spots -->
+            <div class="mt-8 text-center" data-aos="fade-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full text-orange-400 text-xs sm:text-sm">
+                    <span class="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></span>
+                    <span>Aktuell nur noch <strong>3 Plätze</strong> für Februar verfügbar</span>
                 </div>
             </div>
         </div>
@@ -936,11 +1123,10 @@
                 <div class="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500">
                     <a href="https://smartfit-coaching.de/impressum" target="_blank" class="hover:text-white py-2">Impressum</a>
                     <a href="https://smartfit-coaching.de/datenschutz" target="_blank" class="hover:text-white py-2">Datenschutz</a>
-                    <a href="erfolge.html" class="hover:text-white py-2">Erfolge</a>
                 </div>
                 
                 <div class="text-xs sm:text-sm text-gray-500">
-                    © 2026 Smartfit Coaching
+                    © 2026 Smartfit Longevity Coaching
                 </div>
             </div>
         </div>
@@ -948,8 +1134,8 @@
 
     <!-- ==================== STICKY MOBILE CTA ==================== -->
     <div class="fixed bottom-0 left-0 right-0 p-3 sm:p-4 bg-dark-900/95 backdrop-blur-lg border-t border-white/10 md:hidden z-30 sticky-cta">
-        <a href="#kontakt" class="relative block w-full py-4 bg-accent text-black text-center font-semibold rounded-xl text-sm sm:text-base">
-            Kostenloses Erstgespräch buchen
+        <a href="#kontakt" class="relative block w-full py-4 gradient-bg text-black text-center font-semibold rounded-xl text-sm sm:text-base">
+            Kostenloses Strategiegespräch buchen
         </a>
     </div>
 

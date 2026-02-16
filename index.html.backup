@@ -495,24 +495,24 @@
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
                             <span class="text-xl sm:text-2xl">⚠️</span>
                         </div>
-                        <h3 class="text-base sm:text-lg font-semibold text-orange-400" data-editable="problem-title">Das kommt dir bekannt vor</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-orange-400">Das kommt dir bekannt vor</h3>
                     </div>
                     <ul class="space-y-3 sm:space-y-4">
                         <li class="flex items-start gap-3">
                             <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="problem-1">Du bist <strong class="text-white">ständig müde</strong>, obwohl du eigentlich genug schläfst</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du bist <strong class="text-white">ständig müde</strong>, obwohl du eigentlich genug schläfst</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="problem-2">Nachmittags kommt das <strong class="text-white">Energie-Tief</strong> – Kaffee hilft kaum noch</span>
+                            <span class="text-sm sm:text-base text-gray-300">Nachmittags kommt das <strong class="text-white">Energie-Tief</strong> – Kaffee hilft kaum noch</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="problem-3">Nach Anstrengung brauchst du <strong class="text-white">länger zur Erholung</strong> als früher</span>
+                            <span class="text-sm sm:text-base text-gray-300">Nach Anstrengung brauchst du <strong class="text-white">länger zur Erholung</strong> als früher</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-orange-400 mt-0.5 flex-shrink-0">→</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="problem-4">Du fragst dich: <strong class="text-white">"Muss ich das jetzt hinnehmen?"</strong></span>
+                            <span class="text-sm sm:text-base text-gray-300">Du fragst dich: <strong class="text-white">"Muss ich das jetzt hinnehmen?"</strong></span>
                         </li>
                     </ul>
                 </div>
@@ -523,24 +523,24 @@
                         <div class="w-10 h-10 sm:w-12 sm:h-12 pillar-icon rounded-xl flex items-center justify-center flex-shrink-0">
                             <span class="text-xl sm:text-2xl">🎯</span>
                         </div>
-                        <h3 class="text-base sm:text-lg font-semibold text-accent" data-editable="target-title">Mein Coaching ist für dich</h3>
+                        <h3 class="text-base sm:text-lg font-semibold text-accent">Mein Coaching ist für dich</h3>
                     </div>
                     <ul class="space-y-3 sm:space-y-4">
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="target-1"><strong class="text-white">Berufstätige & Führungskräfte</strong> (35-60), die volle Leistungsfähigkeit wollen</span>
+                            <span class="text-sm sm:text-base text-gray-300"><strong class="text-white">Berufstätige & Führungskräfte</strong> (35-60), die volle Leistungsfähigkeit wollen</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="target-2">Du willst <strong class="text-white">vorsorgen statt reparieren</strong> – jetzt handeln, bevor es zu spät ist</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du willst <strong class="text-white">vorsorgen statt reparieren</strong> – jetzt handeln, bevor es zu spät ist</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="target-3">Du bist bereit, in deine <strong class="text-white">Gesundheit zu investieren</strong></span>
+                            <span class="text-sm sm:text-base text-gray-300">Du bist bereit, in deine <strong class="text-white">Gesundheit zu investieren</strong></span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5 flex-shrink-0">✓</span>
-                            <span class="text-sm sm:text-base text-gray-300" data-editable="target-4">Du suchst einen <strong class="text-white">Experten mit Erfahrung</strong>, der dich Schritt für Schritt begleitet</span>
+                            <span class="text-sm sm:text-base text-gray-300">Du suchst einen <strong class="text-white">Experten mit Erfahrung</strong>, der dich Schritt für Schritt begleitet</span>
                         </li>
                     </ul>
                 </div>
@@ -550,10 +550,10 @@
             <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
                 <div class="glass rounded-2xl p-5 sm:p-6 md:p-8 gradient-border">
                     <div class="text-3xl sm:text-4xl mb-3">💡</div>
-                    <p class="text-base sm:text-lg text-gray-300 mb-2" data-editable="insight-1">
+                    <p class="text-base sm:text-lg text-gray-300 mb-2">
                         <strong class="text-white">Die gute Nachricht:</strong> Es ist nicht "das Alter" – du kannst das ändern!
                     </p>
-                    <p class="text-sm sm:text-base text-gray-400" data-editable="insight-2">
+                    <p class="text-sm sm:text-base text-gray-400">
                         Mit dem richtigen Training und der passenden Ernährung fühlst du dich <strong class="gradient-text">wieder wie früher</strong> – voller Energie.
                     </p>
                 </div>
@@ -564,7 +564,7 @@
                 <p class="text-center text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">Bekannt aus & zertifiziert von</p>
                 <div class="flex justify-center overflow-hidden">
                     <img src="https://smartfit-coaching.de/wp-content/uploads/2023/09/referenzen-smartfit-coaching.png" 
-                         alt="Referenzen und Zertifizierungen" class="h-6 sm:h-8 md:h-10 opacity-60 object-contain" onload="this.classList.add('loaded')" data-aos="fade-up" data-editable-img="referenzen-img">
+                         alt="Referenzen und Zertifizierungen" class="h-6 sm:h-8 md:h-10 opacity-60 object-contain" onload="this.classList.add('loaded')" data-aos="fade-up">
                 </div>
             </div>
         </div>
@@ -589,8 +589,8 @@
                     <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
                         🥗
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" data-editable="pillar1-title">Ernährung</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4" data-editable="pillar1-desc">Deinen Stoffwechsel ankurbeln, natürliche Zellverjüngung fördern – ohne strenge Diäten.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Ernährung</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Deinen Stoffwechsel ankurbeln, natürliche Zellverjüngung fördern – ohne strenge Diäten.</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Mahlzeiten clever timen</span>
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Blutzucker im Griff</span>
@@ -602,8 +602,8 @@
                     <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
                         💪
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" data-editable="pillar2-title">Bewegung</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4" data-editable="pillar2-desc">Krafttraining für starke Muskeln & Knochen. Schonende Ausdauer für den Alltag.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Bewegung</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Krafttraining für starke Muskeln & Knochen. Schonende Ausdauer für den Alltag.</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Muskelerhalt</span>
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Herzfitness verbessern</span>
@@ -615,8 +615,8 @@
                     <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
                         🌙
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" data-editable="pillar3-title">Schlaf</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4" data-editable="pillar3-desc">Besser schlafen für natürliche Regeneration und klares Denken am nächsten Tag.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Schlaf</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Besser schlafen für natürliche Regeneration und klares Denken am nächsten Tag.</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Erholsamer Tiefschlaf</span>
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Gesunder Schlaf-Rhythmus</span>
@@ -628,8 +628,8 @@
                     <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
                         🧘
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" data-editable="pillar4-title">Entspannung</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4" data-editable="pillar4-desc">Stressresistenz aufbauen mit einfachen Atemübungen. Dauerstress macht alt – das ändern wir.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Entspannung</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Stressresistenz aufbauen mit einfachen Atemübungen. Dauerstress macht alt – das ändern wir.</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Stress abbauen</span>
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Innere Ruhe finden</span>
@@ -641,8 +641,8 @@
                     <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
                         📊
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" data-editable="pillar5-title">Fortschritt messen</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4" data-editable="pillar5-desc">Blutwerte regelmäßig checken. Was man misst, kann man verbessern – Schritt für Schritt.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Fortschritt messen</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Blutwerte regelmäßig checken. Was man misst, kann man verbessern – Schritt für Schritt.</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Blutwerte verstehen</span>
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Fortschritte sehen</span>
@@ -654,8 +654,8 @@
                     <div class="w-12 h-12 sm:w-14 sm:h-14 pillar-icon rounded-2xl flex items-center justify-center mb-4 sm:mb-5 text-xl sm:text-2xl">
                         🧠
                     </div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" data-editable="pillar6-title">Gute Gewohnheiten</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4" data-editable="pillar6-desc">Neue Routinen aufbauen, die bleiben. Mit persönlicher Begleitung, die dich motiviert.</p>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Gute Gewohnheiten</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Neue Routinen aufbauen, die bleiben. Mit persönlicher Begleitung, die dich motiviert.</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Schritt für Schritt</span>
                         <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">Persönliche Betreuung</span>
@@ -669,8 +669,8 @@
                     <div class="w-14 h-14 sm:w-16 sm:h-16 pillar-icon rounded-full flex items-center justify-center text-2xl sm:text-3xl">⚡</div>
                 </div>
                 <div class="text-center sm:text-left">
-                    <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2" data-editable="goal-title">Das Ziel: Mehr gesunde Lebensjahre – und mehr Lebensfreude in jedem Jahr</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm" data-editable="goal-desc">Keine kurzfristigen Crash-Diäten. Sondern ein System, das dich die nächsten Jahrzehnte begleitet.</p>
+                    <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2">Das Ziel: Mehr gesunde Lebensjahre – und mehr Lebensfreude in jedem Jahr</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm">Keine kurzfristigen Crash-Diäten. Sondern ein System, das dich die nächsten Jahrzehnte begleitet.</p>
                 </div>
             </div>
         </div>
@@ -680,11 +680,11 @@
     <section id="wissenschaft" class="py-12 sm:py-16 md:py-24 bg-dark-800">
         <div class="w-full max-w-6xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12 md:mb-16">
-                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up" data-editable="results-badge">Echte Ergebnisse</span>
-                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100" data-editable="results-headline">
+                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Echte Ergebnisse</span>
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
                     Was meine <span class="gradient-text">Kunden erreichen</span>
                 </h2>
-                <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150" data-editable="results-subheadline">
+                <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150">
                     Keine leeren Versprechen. Diese Ergebnisse basieren auf Daten von über 350 echten Kunden.
                 </p>
             </div>
@@ -1213,8 +1213,8 @@
     <section id="faq" class="py-12 sm:py-16 md:py-24 bg-dark-800">
         <div class="w-full max-w-3xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12">
-                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up" data-editable="faq-badge">Häufige Fragen</span>
-                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100" data-editable="faq-headline">
+                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Häufige Fragen</span>
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
                     Deine Fragen, <span class="gradient-text">ehrlich beantwortet</span>
                 </h2>
             </div>
@@ -1223,7 +1223,7 @@
                 <!-- FAQ 1 -->
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button class="w-full px-4 sm:px-6 py-4 flex items-center justify-between text-left gap-4" onclick="toggleFaq(this)">
-                        <span class="font-medium text-sm sm:text-base" data-editable="faq1-q">"Für wen ist das Coaching geeignet?"</span>
+                        <span class="font-medium text-sm sm:text-base">"Für wen ist das Coaching geeignet?"</span>
                         <svg class="faq-icon w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>

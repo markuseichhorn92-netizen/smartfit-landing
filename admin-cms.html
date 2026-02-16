@@ -367,8 +367,9 @@
     </div>
     
     <script>
-        // Use Vercel proxy (same domain) to avoid network issues
-        const API_BASE = '/api/smartfit';
+        // Use local JSON file - no external server needed
+        const CONTENT_URL = '/content.json';
+        const CMS_PASSWORD = 'Smartfit2026!';
         let content = {};
         let token = localStorage.getItem('smartfit_cms_token');
         
@@ -380,24 +381,12 @@
             e.preventDefault();
             const password = document.getElementById('login-password').value;
             
-            try {
-                const res = await fetch(`${API_BASE}/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password })
-                });
-                
-                const data = await res.json();
-                
-                if (data.success) {
-                    token = data.token;
-                    localStorage.setItem('smartfit_cms_token', token);
-                    loadContent();
-                } else {
-                    showToast('Falsches Passwort', 'error');
-                }
-            } catch (err) {
-                showToast('Verbindungsfehler', 'error');
+            if (password === CMS_PASSWORD) {
+                token = 'local_auth_' + Date.now();
+                localStorage.setItem('smartfit_cms_token', token);
+                loadContent();
+            } else {
+                showToast('Falsches Passwort', 'error');
             }
         }
         
@@ -410,7 +399,7 @@
         
         async function loadContent() {
             try {
-                const res = await fetch(`${API_BASE}/content`);
+                const res = await fetch(CONTENT_URL + '?t=' + Date.now());
                 content = await res.json();
                 
                 document.getElementById('login-screen').classList.add('hidden');
@@ -420,7 +409,7 @@
                 renderDynamicLists();
                 updateLastSaved();
             } catch (err) {
-                showToast('Fehler beim Laden der Inhalte', 'error');
+                showToast('Fehler beim Laden: ' + err.message, 'error');
             }
         }
         
@@ -598,34 +587,24 @@
         }
         function removeCertification(i) { content.about.certifications.splice(i, 1); renderDynamicLists(); }
         
-        // Save
+        // Save - downloads JSON file to send to admin
         async function saveAllContent() {
-            try {
-                const res = await fetch(`${API_BASE}/content`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(content)
-                });
-                
-                const data = await res.json();
-                
-                if (data.success) {
-                    showToast('Gespeichert! ✓', 'success');
-                    updateLastSaved();
-                } else {
-                    if (res.status === 401) {
-                        showToast('Session abgelaufen', 'error');
-                        logout();
-                    } else {
-                        showToast(data.error || 'Fehler', 'error');
-                    }
-                }
-            } catch (err) {
-                showToast('Verbindungsfehler', 'error');
-            }
+            content.lastUpdated = new Date().toISOString();
+            
+            // Save to localStorage as backup
+            localStorage.setItem('smartfit_content_backup', JSON.stringify(content));
+            
+            // Download as JSON file
+            const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'smartfit-content-' + new Date().toISOString().slice(0,10) + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('✓ JSON heruntergeladen! Sende die Datei an J.A.R.V.I.S. zum Veröffentlichen.', 'success');
+            updateLastSaved();
         }
         
         function showTab(tabName) {

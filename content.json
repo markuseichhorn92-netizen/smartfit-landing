@@ -1,0 +1,81 @@
+{
+  "lastUpdated": "2026-02-16T14:25:00Z",
+  "hero": {
+    "badge": "TÜV-zertifizierter Personal Trainer",
+    "headline": "Endlich wieder",
+    "headlineAccent": "fit und voller Energie",
+    "subheadline": "Personal Training für alle ab 35, die sich wieder wohlfühlen wollen",
+    "description": "Mehr Energie für den Alltag. Endlich wieder gut schlafen. Gesund abnehmen ohne Verzicht – mit einem Plan, der zu deinem Leben passt.",
+    "ctaText": "Jetzt kostenlos beraten lassen",
+    "ctaSecondary": "So funktioniert es",
+    "benefits": ["Mehr Energie im Alltag", "Besser schlafen", "Sich wieder wohl fühlen"],
+    "socialProof": { "count": "350+", "text": "zufriedene Kunden" }
+  },
+  "problems": {
+    "badge": "Erkennst du dich wieder?",
+    "headline": "Erfolgreich im Beruf, aber dein",
+    "headlineAccent": "Körper macht nicht mehr mit?",
+    "items": [
+      "Du bist ständig müde, obwohl du eigentlich genug schläfst",
+      "Nachmittags kommt das Energie-Tief – Kaffee hilft kaum noch",
+      "Nach Anstrengung brauchst du länger zur Erholung als früher",
+      "Du fragst dich: \"Muss ich das jetzt hinnehmen?\""
+    ],
+    "targetAudience": [
+      "Berufstätige & Führungskräfte (35-60), die volle Leistungsfähigkeit wollen",
+      "Du willst vorsorgen statt reparieren – jetzt handeln, bevor es zu spät ist",
+      "Du bist bereit, in deine Gesundheit zu investieren",
+      "Du suchst einen Experten mit Erfahrung"
+    ],
+    "insight": {
+      "title": "Die gute Nachricht:",
+      "text": "Es ist nicht \"das Alter\" – du kannst das ändern!",
+      "subtext": "Mit dem richtigen Training fühlst du dich wieder wie früher."
+    }
+  },
+  "pillars": {
+    "badge": "Mein bewährtes System",
+    "headline": "Die 5 Säulen",
+    "headlineAccent": "für gesunde Lebensjahre",
+    "subheadline": "Einfache Schritte, die zu deinem Leben passen.",
+    "items": [
+      { "icon": "🥗", "title": "Ernährung", "description": "Stoffwechsel ankurbeln – ohne strenge Diäten." },
+      { "icon": "💪", "title": "Bewegung", "description": "Krafttraining für starke Muskeln & Knochen." },
+      { "icon": "🌙", "title": "Schlaf", "description": "Besser schlafen für natürliche Regeneration." },
+      { "icon": "🧘", "title": "Entspannung", "description": "Stressresistenz aufbauen." },
+      { "icon": "📊", "title": "Fortschritt messen", "description": "Blutwerte regelmäßig checken." },
+      { "icon": "🧠", "title": "Gewohnheiten", "description": "Neue Routinen aufbauen." }
+    ]
+  },
+  "testimonials": {
+    "headline": "Das sagen meine Kunden",
+    "items": [
+      { "name": "Michael K.", "age": "52, Geschäftsführer", "text": "Nach 3 Monaten 14kg abgenommen!", "rating": 5 },
+      { "name": "Sandra M.", "age": "47, Abteilungsleiterin", "text": "Passt perfekt in meinen Terminkalender.", "rating": 5 },
+      { "name": "Thomas R.", "age": "58, Ingenieur", "text": "Fühle mich 10 Jahre jünger!", "rating": 5 }
+    ]
+  },
+  "faq": {
+    "headline": "Häufige Fragen",
+    "items": [
+      { "question": "Für wen ist das Coaching?", "answer": "Für alle ab 35, die mehr Energie wollen." },
+      { "question": "Wie funktioniert Online Training?", "answer": "Wöchentliche Video-Calls + App + WhatsApp-Support." },
+      { "question": "Brauche ich Ausrüstung?", "answer": "Nein, wir starten mit dem, was du hast." },
+      { "question": "Was kostet es?", "answer": "Im Erstgespräch besprechen wir alles transparent." },
+      { "question": "Wie schnell sehe ich Ergebnisse?", "answer": "2-3 Wochen für mehr Energie, 6-12 Wochen für sichtbare Veränderungen." }
+    ]
+  },
+  "contact": {
+    "headline": "Bereit für den ersten Schritt?",
+    "subheadline": "Lass uns unverbindlich sprechen",
+    "ctaText": "Kostenloses Erstgespräch buchen",
+    "phone": "+49 178 88387851",
+    "email": "david@smartfit-coaching.de"
+  },
+  "about": {
+    "name": "David Puschmann",
+    "title": "Personal Trainer & Gesundheitscoach",
+    "certifications": ["TÜV-zertifiziert", "350+ Kunden", "10+ Jahre Erfahrung"],
+    "bio": "Ich helfe Berufstätigen ab 35, ihre Gesundheit in die eigene Hand zu nehmen."
+  }
+}

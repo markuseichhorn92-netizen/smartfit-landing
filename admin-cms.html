@@ -367,7 +367,8 @@
     </div>
     
     <script>
-        const API_BASE = 'https://srv1309486.hstgr.cloud/api/smartfit';
+        // Use Vercel proxy (same domain) to avoid network issues
+        const API_BASE = '/api/smartfit';
         let content = {};
         let token = localStorage.getItem('smartfit_cms_token');
         

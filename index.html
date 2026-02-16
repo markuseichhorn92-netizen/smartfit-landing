@@ -1488,26 +1488,42 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 50px;
             background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
             border-bottom: 1px solid rgba(6, 182, 212, 0.3);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
+            flex-direction: column;
+            padding: 8px 12px;
+            gap: 8px;
             z-index: 99999;
             font-family: 'Inter', sans-serif;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
+        @media (min-width: 640px) {
+            #admin-toolbar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                height: 50px;
+                padding: 0 20px;
+                gap: 0;
+            }
+        }
         #admin-toolbar.hidden { display: none; }
         #admin-toolbar button {
-            padding: 8px 16px;
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
             border: none;
+            white-space: nowrap;
+        }
+        @media (min-width: 640px) {
+            #admin-toolbar button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
         }
         #admin-toolbar .btn-primary {
             background: linear-gradient(135deg, #06b6d4, #10b981);
@@ -1524,12 +1540,30 @@
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
         #admin-toolbar button:hover { transform: translateY(-1px); }
-        #admin-toolbar .status { color: #10b981; font-size: 12px; }
+        #admin-toolbar .status { color: #10b981; font-size: 11px; }
+        @media (min-width: 640px) {
+            #admin-toolbar .status { font-size: 12px; }
+        }
         #admin-toolbar .logo { color: #fff; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
         #admin-toolbar .logo span { color: #06b6d4; }
-        .edit-mode header { top: 50px !important; }
+        #admin-toolbar .toolbar-buttons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        @media (min-width: 640px) {
+            #admin-toolbar .toolbar-buttons { gap: 12px; flex-wrap: nowrap; }
+        }
+        .edit-mode header { top: auto !important; }
+        @media (min-width: 640px) {
+            .edit-mode header { top: 50px !important; }
+        }
         .edit-mode .sticky-cta { bottom: 0 !important; }
-        .edit-mode { padding-top: 50px; }
+        .edit-mode { padding-top: 80px; }
+        @media (min-width: 640px) {
+            .edit-mode { padding-top: 50px; }
+        }
         #login-modal {
             position: fixed;
             inset: 0;
@@ -1628,12 +1662,11 @@
 
     <!-- Admin Toolbar -->
     <div id="admin-toolbar" class="hidden">
-        <div class="logo">✏️ <span>Edit Mode</span></div>
-        <div style="display:flex; align-items:center; gap:12px;">
-            <span class="status" id="save-status">Ungespeicherte Änderungen</span>
-            <button class="btn-secondary" onclick="resetChanges()">↩️ Zurücksetzen</button>
-            <button class="btn-primary" onclick="saveAndExport()">💾 Speichern & Export</button>
-            <button class="btn-danger" onclick="exitEditMode()">✕ Beenden</button>
+        <div class="logo">✏️ <span>Edit Mode</span> <span class="status" id="save-status"></span></div>
+        <div class="toolbar-buttons">
+            <button class="btn-secondary" onclick="resetChanges()">↩️</button>
+            <button class="btn-primary" onclick="saveAndExport()">💾 Speichern</button>
+            <button class="btn-danger" onclick="exitEditMode()">✕</button>
         </div>
     </div>
 

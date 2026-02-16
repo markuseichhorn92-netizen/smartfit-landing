@@ -1,48 +1,36 @@
-// Vercel Serverless Proxy to SmartFit CMS API
-export const config = {
-  runtime: 'edge',
-};
+const BACKEND_URL = 'https://srv1309486.hstgr.cloud/api/smartfit';
 
-export default async function handler(req) {
-  const url = new URL(req.url);
-  const pathParts = url.pathname.replace('/api/smartfit/', '');
-  const targetUrl = `https://srv1309486.hstgr.cloud/api/smartfit/${pathParts}`;
+export default async function handler(req, res) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  const { path } = req.query;
+  const apiPath = Array.isArray(path) ? path.join('/') : (path || '');
+  const targetUrl = `${BACKEND_URL}/${apiPath}`;
   
   try {
-    const fetchOptions = {
-      method: req.method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    
-    // Forward Authorization header if present
-    const auth = req.headers.get('authorization');
-    if (auth) {
-      fetchOptions.headers['Authorization'] = auth;
+    const headers = { 'Content-Type': 'application/json' };
+    if (req.headers.authorization) {
+      headers['Authorization'] = req.headers.authorization;
     }
-    
-    // Forward body for POST/PUT/PATCH
-    if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
-      fetchOptions.body = await req.text();
+
+    const opts = { method: req.method, headers };
+    if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body) {
+      opts.body = JSON.stringify(req.body);
     }
+
+    const response = await fetch(targetUrl, opts);
+    const data = await response.json();
     
-    const response = await fetch(targetUrl, fetchOptions);
-    const data = await response.text();
-    
-    return new Response(data, {
-      status: response.status,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      },
-    });
+    res.status(response.status).json(data);
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: 'Proxy connection failed', details: error.message }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    console.error('Proxy error:', error);
+    res.status(500).json({ error: 'Proxy failed', message: error.message });
   }
 }

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFit CMS | Content Management</title>
+    <link rel="icon" href="https://smartfit-coaching.de/wp-content/uploads/2022/05/cropped-Smartfit_Coaching_Favicon_ws-32x32.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .tab-active { background: #06b6d4; color: #000; }
+        .tab-inactive { background: rgba(255,255,255,0.1); color: #fff; }
+        .input-field { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: #fff; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            width: 100%; 
+        }
+        .input-field:focus { 
+            outline: none; 
+            border-color: #06b6d4; 
+            background: rgba(255,255,255,0.08);
+        }
+        .input-label { 
+            display: block; 
+            margin-bottom: 6px; 
+            font-weight: 500; 
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+            color: #000;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(6,182,212,0.3); }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+        .toast-success { background: #22c55e; color: #fff; }
+        .toast-error { background: #ef4444; color: #fff; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        textarea.input-field { min-height: 100px; resize: vertical; }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-white min-h-screen">
+    
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-6">
+        <div class="card max-w-md w-full text-center">
+            <div class="text-4xl mb-4">💪</div>
+            <h1 class="text-2xl font-bold mb-2">SmartFit CMS</h1>
+            <p class="text-gray-400 mb-8">Melde dich an, um Inhalte zu bearbeiten</p>
+            
+            <form onsubmit="login(event)">
+                <input type="password" id="login-password" placeholder="Passwort eingeben" 
+                       class="input-field mb-4" autocomplete="current-password">
+                <button type="submit" class="btn-primary w-full">Anmelden</button>
+            </form>
+            
+            <p class="text-gray-500 text-sm mt-6">
+                Probleme? Kontaktiere den Administrator.
+            </p>
+        </div>
+    </div>
+    
+    <!-- CMS Dashboard -->
+    <div id="cms-dashboard" class="hidden">
+        <!-- Header -->
+        <header class="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <span class="text-2xl">💪</span>
+                    <span class="font-bold">SmartFit</span>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-gray-400">CMS</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-gray-400 text-sm" id="last-saved"></span>
+                    <button onclick="saveAllContent()" class="btn-primary flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Speichern
+                    </button>
+                    <button onclick="logout()" class="btn-secondary">Abmelden</button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Navigation Tabs -->
+        <nav class="border-b border-white/10 bg-[#0a0a0a]/50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex gap-2 py-4 overflow-x-auto">
+                    <button onclick="showTab('hero')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-active" data-tab="hero">Hero</button>
+                    <button onclick="showTab('problems')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="problems">Probleme</button>
+                    <button onclick="showTab('pillars')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="pillars">5 Säulen</button>
+                    <button onclick="showTab('results')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="results">Ergebnisse</button>
+                    <button onclick="showTab('testimonials')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="testimonials">Bewertungen</button>
+                    <button onclick="showTab('faq')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="faq">FAQ</button>
+                    <button onclick="showTab('contact')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="contact">Kontakt</button>
+                    <button onclick="showTab('about')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="about">Über David</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Content Area -->
+        <main class="max-w-7xl mx-auto px-6 py-8">
+            
+            <!-- Hero Section -->
+            <section id="tab-hero" class="tab-content">
+                <h2 class="text-xl font-bold mb-6">Hero-Bereich</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <label class="input-label">Badge (über Headline)</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.badge">
+                        
+                        <label class="input-label">Überschrift (Zeile 1)</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.headline">
+                        
+                        <label class="input-label">Überschrift (Zeile 2 - farbig)</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.headlineAccent">
+                        
+                        <label class="input-label">Unterüberschrift</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.subheadline">
+                        
+                        <label class="input-label">Beschreibung</label>
+                        <textarea class="input-field mb-4" data-bind="hero.description"></textarea>
+                        
+                        <label class="input-label">CTA Button Text</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.ctaText">
+                        
+                        <label class="input-label">Sekundärer CTA</label>
+                        <input type="text" class="input-field" data-bind="hero.ctaSecondary">
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="font-semibold mb-4">Social Proof</h3>
+                        <label class="input-label">Anzahl</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.socialProof.count">
+                        
+                        <label class="input-label">Text</label>
+                        <input type="text" class="input-field mb-6" data-bind="hero.socialProof.text">
+                        
+                        <h3 class="font-semibold mb-4">Key Benefits (3 Punkte)</h3>
+                        <div id="hero-benefits-list" class="space-y-2">
+                            <!-- Dynamically filled -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Problems Section -->
+            <section id="tab-problems" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Probleme & Zielgruppe</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <label class="input-label">Badge</label>
+                        <input type="text" class="input-field mb-4" data-bind="problems.badge">
+                        
+                        <label class="input-label">Headline</label>
+                        <input type="text" class="input-field mb-4" data-bind="problems.headline">
+                        
+                        <label class="input-label">Headline Akzent</label>
+                        <input type="text" class="input-field mb-4" data-bind="problems.headlineAccent">
+                        
+                        <h3 class="font-semibold mb-3 mt-6">Problem-Punkte</h3>
+                        <div id="problems-list" class="space-y-2">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <button onclick="addProblem()" class="btn-secondary mt-4 text-sm">+ Problem hinzufügen</button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="font-semibold mb-3">Zielgruppe</h3>
+                        <div id="target-audience-list" class="space-y-2">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <button onclick="addTargetAudience()" class="btn-secondary mt-4 text-sm">+ Punkt hinzufügen</button>
+                        
+                        <h3 class="font-semibold mb-3 mt-6">Insight Box</h3>
+                        <label class="input-label">Titel</label>
+                        <input type="text" class="input-field mb-2" data-bind="problems.insight.title">
+                        <label class="input-label">Text</label>
+                        <input type="text" class="input-field mb-2" data-bind="problems.insight.text">
+                        <label class="input-label">Subtext</label>
+                        <input type="text" class="input-field" data-bind="problems.insight.subtext">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 5 Pillars Section -->
+            <section id="tab-pillars" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Die 5 Säulen</h2>
+                <div class="card mb-6">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="input-label">Badge</label>
+                            <input type="text" class="input-field" data-bind="pillars.badge">
+                        </div>
+                        <div>
+                            <label class="input-label">Headline</label>
+                            <input type="text" class="input-field" data-bind="pillars.headline">
+                        </div>
+                        <div>
+                            <label class="input-label">Headline Akzent</label>
+                            <input type="text" class="input-field" data-bind="pillars.headlineAccent">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="input-label">Subheadline</label>
+                        <input type="text" class="input-field" data-bind="pillars.subheadline">
+                    </div>
+                </div>
+                
+                <h3 class="font-semibold mb-4">Säulen</h3>
+                <div id="pillars-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Dynamically filled -->
+                </div>
+            </section>
+            
+            <!-- Results Section -->
+            <section id="tab-results" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Ergebnisse & Statistiken</h2>
+                <div class="card mb-6">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="input-label">Badge</label>
+                            <input type="text" class="input-field" data-bind="results.badge">
+                        </div>
+                        <div>
+                            <label class="input-label">Headline</label>
+                            <input type="text" class="input-field" data-bind="results.headline">
+                        </div>
+                        <div>
+                            <label class="input-label">Headline Akzent</label>
+                            <input type="text" class="input-field" data-bind="results.headlineAccent">
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="font-semibold mb-4">Statistiken</h3>
+                <div id="stats-list" class="grid md:grid-cols-3 gap-4">
+                    <!-- Dynamically filled -->
+                </div>
+            </section>
+            
+            <!-- Testimonials Section -->
+            <section id="tab-testimonials" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Kundenbewertungen</h2>
+                <div class="card mb-6">
+                    <label class="input-label">Überschrift</label>
+                    <input type="text" class="input-field" data-bind="testimonials.headline">
+                </div>
+                
+                <div id="testimonials-list" class="grid md:grid-cols-3 gap-4">
+                    <!-- Dynamically filled -->
+                </div>
+                <button onclick="addTestimonial()" class="btn-secondary mt-4 text-sm">+ Bewertung hinzufügen</button>
+            </section>
+            
+            <!-- FAQ Section -->
+            <section id="tab-faq" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">FAQ</h2>
+                <div class="card mb-6">
+                    <label class="input-label">Überschrift</label>
+                    <input type="text" class="input-field" data-bind="faq.headline">
+                </div>
+                
+                <div id="faq-list" class="space-y-4">
+                    <!-- Dynamically filled -->
+                </div>
+                <button onclick="addFaqItem()" class="btn-secondary mt-4 text-sm">+ FAQ hinzufügen</button>
+            </section>
+            
+            <!-- Contact Section -->
+            <section id="tab-contact" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Kontakt</h2>
+                <div class="card">
+                    <label class="input-label">Überschrift</label>
+                    <input type="text" class="input-field mb-4" data-bind="contact.headline">
+                    
+                    <label class="input-label">Unterüberschrift</label>
+                    <input type="text" class="input-field mb-4" data-bind="contact.subheadline">
+                    
+                    <label class="input-label">CTA Button Text</label>
+                    <input type="text" class="input-field mb-4" data-bind="contact.ctaText">
+                    
+                    <label class="input-label">Telefon</label>
+                    <input type="text" class="input-field mb-4" data-bind="contact.phone">
+                    
+                    <label class="input-label">E-Mail</label>
+                    <input type="email" class="input-field mb-4" data-bind="contact.email">
+                    
+                    <label class="input-label">Calendly URL</label>
+                    <input type="url" class="input-field" data-bind="contact.calendlyUrl">
+                </div>
+            </section>
+            
+            <!-- About Section -->
+            <section id="tab-about" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Über David</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <label class="input-label">Name</label>
+                        <input type="text" class="input-field mb-4" data-bind="about.name">
+                        
+                        <label class="input-label">Titel</label>
+                        <input type="text" class="input-field mb-4" data-bind="about.title">
+                        
+                        <label class="input-label">Profilbild URL</label>
+                        <input type="url" class="input-field mb-4" data-bind="about.image">
+                        
+                        <label class="input-label">Bio</label>
+                        <textarea class="input-field" data-bind="about.bio"></textarea>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="font-semibold mb-4">Zertifizierungen</h3>
+                        <div id="certifications-list" class="space-y-2">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <button onclick="addCertification()" class="btn-secondary mt-4 text-sm">+ Zertifizierung hinzufügen</button>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+        
+        <!-- Footer -->
+        <footer class="border-t border-white/10 py-6 mt-12">
+            <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm">
+                <p>SmartFit CMS • Für größere Design-Änderungen bitte J.A.R.V.I.S. kontaktieren</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        const API_BASE = 'https://srv1309486.hstgr.cloud/api/smartfit';
+        let content = {};
+        let token = localStorage.getItem('smartfit_cms_token');
+        
+        if (token) {
+            loadContent();
+        }
+        
+        async function login(e) {
+            e.preventDefault();
+            const password = document.getElementById('login-password').value;
+            
+            try {
+                const res = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    token = data.token;
+                    localStorage.setItem('smartfit_cms_token', token);
+                    loadContent();
+                } else {
+                    showToast('Falsches Passwort', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler', 'error');
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('smartfit_cms_token');
+            token = null;
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('cms-dashboard').classList.add('hidden');
+        }
+        
+        async function loadContent() {
+            try {
+                const res = await fetch(`${API_BASE}/content`);
+                content = await res.json();
+                
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('cms-dashboard').classList.remove('hidden');
+                
+                bindContent();
+                renderDynamicLists();
+                updateLastSaved();
+            } catch (err) {
+                showToast('Fehler beim Laden der Inhalte', 'error');
+            }
+        }
+        
+        function bindContent() {
+            document.querySelectorAll('[data-bind]').forEach(el => {
+                const path = el.dataset.bind.split('.');
+                let value = content;
+                for (const key of path) {
+                    value = value?.[key];
+                }
+                el.value = value || '';
+                
+                el.addEventListener('input', () => {
+                    setNestedValue(content, path, el.value);
+                });
+            });
+        }
+        
+        function setNestedValue(obj, path, value) {
+            let current = obj;
+            for (let i = 0; i < path.length - 1; i++) {
+                if (!current[path[i]]) current[path[i]] = {};
+                current = current[path[i]];
+            }
+            current[path[path.length - 1]] = value;
+        }
+        
+        function renderDynamicLists() {
+            // Hero benefits
+            const benefitsList = document.getElementById('hero-benefits-list');
+            if (benefitsList && content.hero?.benefits) {
+                benefitsList.innerHTML = content.hero.benefits.map((b, i) => `
+                    <input type="text" class="input-field text-sm" value="${b}" 
+                           onchange="content.hero.benefits[${i}] = this.value">
+                `).join('');
+            }
+            
+            // Problems
+            const problemsList = document.getElementById('problems-list');
+            if (problemsList && content.problems?.items) {
+                problemsList.innerHTML = content.problems.items.map((p, i) => `
+                    <div class="flex gap-2">
+                        <input type="text" class="input-field text-sm flex-1" value="${p}" 
+                               onchange="content.problems.items[${i}] = this.value">
+                        <button onclick="removeProblem(${i})" class="text-red-400 px-2">✕</button>
+                    </div>
+                `).join('');
+            }
+            
+            // Target audience
+            const targetList = document.getElementById('target-audience-list');
+            if (targetList && content.problems?.targetAudience) {
+                targetList.innerHTML = content.problems.targetAudience.map((t, i) => `
+                    <div class="flex gap-2">
+                        <input type="text" class="input-field text-sm flex-1" value="${t}" 
+                               onchange="content.problems.targetAudience[${i}] = this.value">
+                        <button onclick="removeTargetAudience(${i})" class="text-red-400 px-2">✕</button>
+                    </div>
+                `).join('');
+            }
+            
+            // Pillars
+            const pillarsList = document.getElementById('pillars-list');
+            if (pillarsList && content.pillars?.items) {
+                pillarsList.innerHTML = content.pillars.items.map((p, i) => `
+                    <div class="card">
+                        <div class="flex justify-between items-start mb-3">
+                            <input type="text" class="text-2xl bg-transparent w-12" value="${p.icon}" 
+                                   onchange="content.pillars.items[${i}].icon = this.value">
+                            <span class="text-sm text-gray-400">Säule ${i+1}</span>
+                        </div>
+                        <input type="text" class="input-field mb-2 text-sm" value="${p.title}" placeholder="Titel"
+                               onchange="content.pillars.items[${i}].title = this.value">
+                        <textarea class="input-field text-sm" placeholder="Beschreibung"
+                               onchange="content.pillars.items[${i}].description = this.value">${p.description}</textarea>
+                    </div>
+                `).join('');
+            }
+            
+            // Stats
+            const statsList = document.getElementById('stats-list');
+            if (statsList && content.results?.stats) {
+                statsList.innerHTML = content.results.stats.map((s, i) => `
+                    <div class="card">
+                        <input type="text" class="input-field mb-2 text-lg font-bold" value="${s.value}" placeholder="Wert"
+                               onchange="content.results.stats[${i}].value = this.value">
+                        <input type="text" class="input-field text-sm" value="${s.label}" placeholder="Label"
+                               onchange="content.results.stats[${i}].label = this.value">
+                    </div>
+                `).join('');
+            }
+            
+            // Testimonials
+            const testimonialsList = document.getElementById('testimonials-list');
+            if (testimonialsList && content.testimonials?.items) {
+                testimonialsList.innerHTML = content.testimonials.items.map((t, i) => `
+                    <div class="card">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-sm text-gray-400">Bewertung ${i+1}</span>
+                            <button onclick="removeTestimonial(${i})" class="text-red-400 text-sm">✕</button>
+                        </div>
+                        <input type="text" class="input-field mb-2 text-sm" value="${t.name}" placeholder="Name"
+                               onchange="content.testimonials.items[${i}].name = this.value">
+                        <input type="text" class="input-field mb-2 text-sm" value="${t.age || ''}" placeholder="Alter, Beruf"
+                               onchange="content.testimonials.items[${i}].age = this.value">
+                        <textarea class="input-field text-sm" placeholder="Text"
+                               onchange="content.testimonials.items[${i}].text = this.value">${t.text}</textarea>
+                    </div>
+                `).join('');
+            }
+            
+            // FAQ
+            const faqList = document.getElementById('faq-list');
+            if (faqList && content.faq?.items) {
+                faqList.innerHTML = content.faq.items.map((f, i) => `
+                    <div class="card">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-sm text-gray-400">FAQ ${i+1}</span>
+                            <button onclick="removeFaqItem(${i})" class="text-red-400 text-sm">✕</button>
+                        </div>
+                        <input type="text" class="input-field mb-2 text-sm" value="${f.question}" placeholder="Frage"
+                               onchange="content.faq.items[${i}].question = this.value">
+                        <textarea class="input-field text-sm" placeholder="Antwort"
+                               onchange="content.faq.items[${i}].answer = this.value">${f.answer}</textarea>
+                    </div>
+                `).join('');
+            }
+            
+            // Certifications
+            const certsList = document.getElementById('certifications-list');
+            if (certsList && content.about?.certifications) {
+                certsList.innerHTML = content.about.certifications.map((c, i) => `
+                    <div class="flex gap-2">
+                        <input type="text" class="input-field text-sm flex-1" value="${c}" 
+                               onchange="content.about.certifications[${i}] = this.value">
+                        <button onclick="removeCertification(${i})" class="text-red-400 px-2">✕</button>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // Add/Remove functions
+        function addProblem() {
+            if (!content.problems.items) content.problems.items = [];
+            content.problems.items.push('');
+            renderDynamicLists();
+        }
+        function removeProblem(i) { content.problems.items.splice(i, 1); renderDynamicLists(); }
+        
+        function addTargetAudience() {
+            if (!content.problems.targetAudience) content.problems.targetAudience = [];
+            content.problems.targetAudience.push('');
+            renderDynamicLists();
+        }
+        function removeTargetAudience(i) { content.problems.targetAudience.splice(i, 1); renderDynamicLists(); }
+        
+        function addTestimonial() {
+            if (!content.testimonials.items) content.testimonials.items = [];
+            content.testimonials.items.push({ name: '', age: '', text: '', rating: 5 });
+            renderDynamicLists();
+        }
+        function removeTestimonial(i) { content.testimonials.items.splice(i, 1); renderDynamicLists(); }
+        
+        function addFaqItem() {
+            if (!content.faq.items) content.faq.items = [];
+            content.faq.items.push({ question: '', answer: '' });
+            renderDynamicLists();
+        }
+        function removeFaqItem(i) { content.faq.items.splice(i, 1); renderDynamicLists(); }
+        
+        function addCertification() {
+            if (!content.about.certifications) content.about.certifications = [];
+            content.about.certifications.push('');
+            renderDynamicLists();
+        }
+        function removeCertification(i) { content.about.certifications.splice(i, 1); renderDynamicLists(); }
+        
+        // Save
+        async function saveAllContent() {
+            try {
+                const res = await fetch(`${API_BASE}/content`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(content)
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    showToast('Gespeichert! ✓', 'success');
+                    updateLastSaved();
+                } else {
+                    if (res.status === 401) {
+                        showToast('Session abgelaufen', 'error');
+                        logout();
+                    } else {
+                        showToast(data.error || 'Fehler', 'error');
+                    }
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler', 'error');
+            }
+        }
+        
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab').forEach(el => {
+                el.classList.remove('tab-active');
+                el.classList.add('tab-inactive');
+            });
+            
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.remove('tab-inactive');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('tab-active');
+        }
+        
+        function updateLastSaved() {
+            const date = content.lastUpdated ? new Date(content.lastUpdated) : new Date();
+            document.getElementById('last-saved').textContent = `Zuletzt: ${date.toLocaleString('de-DE')}`;
+        }
+        
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

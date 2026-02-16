@@ -1624,12 +1624,34 @@
     </div>
 
     <script>
+        // Supabase Config
+        const SUPABASE_URL = 'https://wkkoinaeplzcclosnlrn.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indra29pbmFlcGx6Y2Nsb3NubHJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzkwMjcxMTksImV4cCI6MjA1NDYwMzExOX0.D4kGTd9-vhCDokE6lV95-A_o2w61XO_';
+        
         // Inline Editor System
         const ADMIN_PASSWORD = 'Smartfit2026!';
         let isEditMode = false;
         let currentImgElement = null;
         let hasChanges = false;
         let originalContent = {};
+
+        // Supabase helper
+        async function supabaseRequest(method, body = null) {
+            const opts = {
+                method,
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': method === 'POST' ? 'return=representation' : 'return=minimal'
+                }
+            };
+            if (body) opts.body = JSON.stringify(body);
+            
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/smartfit_content?id=eq.main`, opts);
+            if (!res.ok) throw new Error('Supabase error: ' + res.status);
+            return method === 'GET' ? res.json() : true;
+        }
 
         // Check URL for edit mode
         if (window.location.search.includes('edit=true') || window.location.hash === '#edit') {
@@ -1707,10 +1729,15 @@
             location.reload();
         }
 
-        function updateStatus() {
+        function updateStatus(msg) {
             const status = document.getElementById('save-status');
-            status.textContent = hasChanges ? '⚠️ Ungespeicherte Änderungen' : '✓ Gespeichert';
-            status.style.color = hasChanges ? '#f59e0b' : '#10b981';
+            if (msg) {
+                status.textContent = msg;
+                status.style.color = '#06b6d4';
+            } else {
+                status.textContent = hasChanges ? '⚠️ Ungespeicherte Änderungen' : '✓ Live';
+                status.style.color = hasChanges ? '#f59e0b' : '#10b981';
+            }
         }
 
         function openImgModal(img) {
@@ -1753,9 +1780,8 @@
             updateStatus();
         }
 
-        function saveAndExport() {
+        async function saveAndExport() {
             const content = {
-                lastUpdated: new Date().toISOString(),
                 texts: {},
                 images: {}
             };
@@ -1768,38 +1794,72 @@
                 content.images[img.dataset.editableImg] = img.src;
             });
             
-            // Save to localStorage
-            localStorage.setItem('smartfit_content', JSON.stringify(content));
+            updateStatus('💾 Speichere...');
             
-            // Download as JSON
-            const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'smartfit-changes-' + new Date().toISOString().slice(0,10) + '.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            hasChanges = false;
-            updateStatus();
-            alert('✅ Änderungen gespeichert!\n\nDie JSON-Datei wurde heruntergeladen.\nSende sie an J.A.R.V.I.S. um die Änderungen live zu schalten.');
+            try {
+                // Save to Supabase
+                await fetch(`${SUPABASE_URL}/rest/v1/smartfit_content`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'resolution=merge-duplicates'
+                    },
+                    body: JSON.stringify({
+                        id: 'main',
+                        content: content,
+                        updated_at: new Date().toISOString(),
+                        updated_by: 'admin'
+                    })
+                });
+                
+                hasChanges = false;
+                updateStatus('✅ Live!');
+                
+                // Brief success message
+                setTimeout(() => updateStatus(), 2000);
+                
+            } catch (err) {
+                console.error('Save error:', err);
+                updateStatus('❌ Fehler beim Speichern');
+                
+                // Fallback: download JSON
+                const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'smartfit-backup-' + Date.now() + '.json';
+                a.click();
+            }
         }
 
-        // Load saved content on page load
-        function loadSavedContent() {
-            const saved = localStorage.getItem('smartfit_content');
-            if (saved) {
-                try {
-                    const content = JSON.parse(saved);
+        // Load content from Supabase on page load
+        async function loadSavedContent() {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/smartfit_content?id=eq.main&select=content`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                
+                const data = await res.json();
+                if (data && data[0] && data[0].content) {
+                    const content = data[0].content;
+                    
                     Object.keys(content.texts || {}).forEach(key => {
                         const el = document.querySelector(`[data-editable="${key}"]`);
                         if (el) el.innerHTML = content.texts[key];
                     });
+                    
                     Object.keys(content.images || {}).forEach(key => {
                         const img = document.querySelector(`[data-editable-img="${key}"]`);
                         if (img) img.src = content.images[key];
                     });
-                } catch(e) {}
+                }
+            } catch(e) {
+                console.log('No Supabase content yet, using defaults');
             }
         }
         loadSavedContent();

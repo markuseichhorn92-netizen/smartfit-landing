@@ -401,15 +401,15 @@
                     </div>
                     
                     <!-- H1 - Ü50-freundlich, emotional, benefit-fokussiert -->
-                    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 sm:mb-6" data-aos="fade-up" data-aos-delay="100">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 sm:mb-6" data-aos="fade-up" data-aos-delay="100" data-editable="hero-headline">
                         Endlich wieder <span class="gradient-text">fit und voller Energie</span>
                     </h1>
                     
-                    <p class="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="150">
+                    <p class="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="150" data-editable="hero-subheadline">
                         Personal Training für <strong class="text-white">alle ab 35</strong>, die sich wieder wohlfühlen wollen
                     </p>
                     
-                    <p class="text-sm sm:text-base text-gray-400 mb-6 max-w-lg mx-auto md:mx-0" data-aos="fade-up" data-aos-delay="200">
+                    <p class="text-sm sm:text-base text-gray-400 mb-6 max-w-lg mx-auto md:mx-0" data-aos="fade-up" data-aos-delay="200" data-editable="hero-description">
                         Mehr Energie für den Alltag. Endlich wieder gut schlafen. 
                         Gesund abnehmen ohne Verzicht – mit einem Plan, der zu deinem Leben passt.
                     </p>
@@ -469,7 +469,8 @@
                         <img src="https://smartfit-coaching.de/wp-content/uploads/2023/02/personal-trainer-trier-david-puschmann-smartfit-coaching.png" 
                              alt="David Puschmann - Personal Trainer und Fitness Coach" 
                              class="relative w-full mx-auto"
-                             onload="this.classList.add('loaded')">
+                             onload="this.classList.add('loaded')"
+                             data-editable-img="hero-image">
                     </div>
                 </div>
             </div>
@@ -480,8 +481,8 @@
     <section id="fuer-wen" class="py-12 sm:py-16 md:py-24 bg-dark-800">
         <div class="w-full max-w-6xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12">
-                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Erkennst du dich wieder?</span>
-                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
+                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up" data-editable="fuerwen-badge">Erkennst du dich wieder?</span>
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100" data-editable="fuerwen-headline">
                     Erfolgreich im Beruf, aber dein <span class="gradient-text">Körper macht nicht mehr mit?</span>
                 </h2>
             </div>
@@ -573,11 +574,11 @@
     <section id="methode" class="py-12 sm:py-16 md:py-24 bg-dark-900 dna-pattern">
         <div class="w-full max-w-6xl mx-auto px-4">
             <div class="text-center mb-8 sm:mb-12 md:mb-16">
-                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up">Mein bewährtes System</span>
-                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100">
+                <span class="text-accent text-xs sm:text-sm font-medium uppercase tracking-wider" data-aos="fade-up" data-editable="pillars-badge">Mein bewährtes System</span>
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 mb-3 sm:mb-4" data-aos="fade-up" data-aos-delay="100" data-editable="pillars-headline">
                     Die <span class="gradient-text">5 Säulen</span> für gesunde Lebensjahre
                 </h2>
-                <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150">
+                <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150" data-editable="pillars-subheadline">
                     Kein kompliziertes Programm. Einfache Schritte, die zu deinem Leben passen.
                 </p>
             </div>
@@ -1456,6 +1457,353 @@
             Jetzt kostenlos beraten lassen
         </a>
     </div>
+
+    <!-- ==================== INLINE EDITOR ==================== -->
+    <style id="editor-styles">
+        .edit-mode [data-editable] {
+            outline: 2px dashed rgba(6, 182, 212, 0.5) !important;
+            outline-offset: 4px;
+            cursor: text !important;
+            transition: outline-color 0.2s, background 0.2s;
+        }
+        .edit-mode [data-editable]:hover {
+            outline-color: rgba(6, 182, 212, 0.8) !important;
+            background: rgba(6, 182, 212, 0.1) !important;
+        }
+        .edit-mode [data-editable]:focus {
+            outline-color: #06b6d4 !important;
+            outline-style: solid !important;
+            background: rgba(6, 182, 212, 0.15) !important;
+        }
+        .edit-mode [data-editable-img] {
+            outline: 2px dashed rgba(16, 185, 129, 0.5) !important;
+            outline-offset: 4px;
+            cursor: pointer !important;
+        }
+        .edit-mode [data-editable-img]:hover {
+            outline-color: rgba(16, 185, 129, 0.8) !important;
+        }
+        #admin-toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 99999;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        #admin-toolbar.hidden { display: none; }
+        #admin-toolbar button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        #admin-toolbar .btn-primary {
+            background: linear-gradient(135deg, #06b6d4, #10b981);
+            color: #000;
+        }
+        #admin-toolbar .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        #admin-toolbar .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        #admin-toolbar button:hover { transform: translateY(-1px); }
+        #admin-toolbar .status { color: #10b981; font-size: 12px; }
+        #admin-toolbar .logo { color: #fff; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        #admin-toolbar .logo span { color: #06b6d4; }
+        .edit-mode header { top: 50px !important; }
+        .edit-mode .sticky-cta { bottom: 0 !important; }
+        .edit-mode { padding-top: 50px; }
+        #login-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+        }
+        #login-modal.hidden { display: none; }
+        #login-modal .modal-box {
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 360px;
+            width: 90%;
+        }
+        #login-modal input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        #login-modal input:focus { outline: none; border-color: #06b6d4; }
+        #img-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+        }
+        #img-modal.hidden { display: none; }
+        #img-modal .modal-box {
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+        }
+        #img-modal input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+        #img-modal img { max-width: 100%; max-height: 200px; border-radius: 8px; margin-bottom: 16px; }
+    </style>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden">
+        <div class="modal-box">
+            <h3 style="color:#fff; font-size:18px; font-weight:600; margin-bottom:8px;">🔐 Admin Login</h3>
+            <p style="color:#888; font-size:13px; margin-bottom:20px;">Passwort eingeben um zu bearbeiten</p>
+            <input type="password" id="admin-password" placeholder="Passwort">
+            <button onclick="doLogin()" class="btn-primary" style="width:100%; padding:12px; background:linear-gradient(135deg,#06b6d4,#10b981); border:none; border-radius:8px; color:#000; font-weight:600; cursor:pointer;">Anmelden</button>
+        </div>
+    </div>
+
+    <!-- Image Edit Modal -->
+    <div id="img-modal" class="hidden">
+        <div class="modal-box">
+            <h3 style="color:#fff; font-size:16px; font-weight:600; margin-bottom:16px;">🖼️ Bild ändern</h3>
+            <img id="img-preview" src="" alt="Preview">
+            <input type="text" id="img-url-input" placeholder="Neue Bild-URL eingeben">
+            <div style="display:flex; gap:8px;">
+                <button onclick="closeImgModal()" class="btn-secondary" style="flex:1; padding:10px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:#fff; cursor:pointer;">Abbrechen</button>
+                <button onclick="saveImgUrl()" class="btn-primary" style="flex:1; padding:10px; background:linear-gradient(135deg,#06b6d4,#10b981); border:none; border-radius:8px; color:#000; font-weight:600; cursor:pointer;">Speichern</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Toolbar -->
+    <div id="admin-toolbar" class="hidden">
+        <div class="logo">✏️ <span>Edit Mode</span></div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <span class="status" id="save-status">Ungespeicherte Änderungen</span>
+            <button class="btn-secondary" onclick="resetChanges()">↩️ Zurücksetzen</button>
+            <button class="btn-primary" onclick="saveAndExport()">💾 Speichern & Export</button>
+            <button class="btn-danger" onclick="exitEditMode()">✕ Beenden</button>
+        </div>
+    </div>
+
+    <script>
+        // Inline Editor System
+        const ADMIN_PASSWORD = 'Smartfit2026!';
+        let isEditMode = false;
+        let currentImgElement = null;
+        let hasChanges = false;
+        let originalContent = {};
+
+        // Check URL for edit mode
+        if (window.location.search.includes('edit=true') || window.location.hash === '#edit') {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('admin-password').focus();
+        }
+
+        // Login handler
+        document.getElementById('admin-password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') doLogin();
+        });
+
+        function doLogin() {
+            const pwd = document.getElementById('admin-password').value;
+            if (pwd === ADMIN_PASSWORD) {
+                document.getElementById('login-modal').classList.add('hidden');
+                enableEditMode();
+            } else {
+                alert('Falsches Passwort!');
+            }
+        }
+
+        function enableEditMode() {
+            isEditMode = true;
+            document.body.classList.add('edit-mode');
+            document.getElementById('admin-toolbar').classList.remove('hidden');
+            
+            // Make elements editable
+            document.querySelectorAll('[data-editable]').forEach(el => {
+                originalContent[el.dataset.editable] = el.innerHTML;
+                el.contentEditable = true;
+                el.addEventListener('input', () => {
+                    hasChanges = true;
+                    updateStatus();
+                });
+                el.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const text = e.clipboardData.getData('text/plain');
+                    document.execCommand('insertText', false, text);
+                });
+            });
+
+            // Make images clickable for editing
+            document.querySelectorAll('[data-editable-img]').forEach(img => {
+                originalContent['img_' + img.dataset.editableImg] = img.src;
+                img.addEventListener('click', (e) => {
+                    if (isEditMode) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        openImgModal(img);
+                    }
+                });
+            });
+
+            updateStatus();
+        }
+
+        function exitEditMode() {
+            if (hasChanges && !confirm('Ungespeicherte Änderungen verwerfen?')) return;
+            
+            isEditMode = false;
+            document.body.classList.remove('edit-mode');
+            document.getElementById('admin-toolbar').classList.add('hidden');
+            
+            document.querySelectorAll('[data-editable]').forEach(el => {
+                el.contentEditable = false;
+            });
+            
+            // Remove edit param from URL
+            const url = new URL(window.location);
+            url.searchParams.delete('edit');
+            url.hash = '';
+            window.history.replaceState({}, '', url);
+            
+            location.reload();
+        }
+
+        function updateStatus() {
+            const status = document.getElementById('save-status');
+            status.textContent = hasChanges ? '⚠️ Ungespeicherte Änderungen' : '✓ Gespeichert';
+            status.style.color = hasChanges ? '#f59e0b' : '#10b981';
+        }
+
+        function openImgModal(img) {
+            currentImgElement = img;
+            document.getElementById('img-preview').src = img.src;
+            document.getElementById('img-url-input').value = img.src;
+            document.getElementById('img-modal').classList.remove('hidden');
+        }
+
+        function closeImgModal() {
+            document.getElementById('img-modal').classList.add('hidden');
+            currentImgElement = null;
+        }
+
+        function saveImgUrl() {
+            if (currentImgElement) {
+                const newUrl = document.getElementById('img-url-input').value;
+                currentImgElement.src = newUrl;
+                hasChanges = true;
+                updateStatus();
+            }
+            closeImgModal();
+        }
+
+        function resetChanges() {
+            if (!confirm('Alle Änderungen zurücksetzen?')) return;
+            
+            Object.keys(originalContent).forEach(key => {
+                if (key.startsWith('img_')) {
+                    const imgKey = key.replace('img_', '');
+                    const img = document.querySelector(`[data-editable-img="${imgKey}"]`);
+                    if (img) img.src = originalContent[key];
+                } else {
+                    const el = document.querySelector(`[data-editable="${key}"]`);
+                    if (el) el.innerHTML = originalContent[key];
+                }
+            });
+            
+            hasChanges = false;
+            updateStatus();
+        }
+
+        function saveAndExport() {
+            const content = {
+                lastUpdated: new Date().toISOString(),
+                texts: {},
+                images: {}
+            };
+            
+            document.querySelectorAll('[data-editable]').forEach(el => {
+                content.texts[el.dataset.editable] = el.innerHTML;
+            });
+            
+            document.querySelectorAll('[data-editable-img]').forEach(img => {
+                content.images[img.dataset.editableImg] = img.src;
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('smartfit_content', JSON.stringify(content));
+            
+            // Download as JSON
+            const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'smartfit-changes-' + new Date().toISOString().slice(0,10) + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            hasChanges = false;
+            updateStatus();
+            alert('✅ Änderungen gespeichert!\n\nDie JSON-Datei wurde heruntergeladen.\nSende sie an J.A.R.V.I.S. um die Änderungen live zu schalten.');
+        }
+
+        // Load saved content on page load
+        function loadSavedContent() {
+            const saved = localStorage.getItem('smartfit_content');
+            if (saved) {
+                try {
+                    const content = JSON.parse(saved);
+                    Object.keys(content.texts || {}).forEach(key => {
+                        const el = document.querySelector(`[data-editable="${key}"]`);
+                        if (el) el.innerHTML = content.texts[key];
+                    });
+                    Object.keys(content.images || {}).forEach(key => {
+                        const img = document.querySelector(`[data-editable-img="${key}"]`);
+                        if (img) img.src = content.images[key];
+                    });
+                } catch(e) {}
+            }
+        }
+        loadSavedContent();
+    </script>
 
     <!-- ==================== SCRIPTS ==================== -->
     <script>

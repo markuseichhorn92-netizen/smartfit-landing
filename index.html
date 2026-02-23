@@ -587,6 +587,22 @@
                 </p>
             </div>
             
+            <!-- Zwei Bilder zwischen Überschrift und Säulen-Boxen -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" 
+                         data-editable-img="pillars-img1"
+                         alt="Gesundheit und Fitness" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="relative overflow-hidden rounded-2xl aspect-[4/3]">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&q=80" 
+                         data-editable-img="pillars-img2"
+                         alt="Persönliches Training" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+            
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <!-- Säule 1: Ernährung - Ü50-freundlich -->
                 <div class="glass rounded-2xl p-5 sm:p-6 card-hover" data-aos="fade-up">
@@ -1973,6 +1989,16 @@
                         const img = document.querySelector(`[data-editable-img="${key}"]`);
                         if (img) img.src = content.images[key];
                     });
+                    
+                    // Handle pillars images (stored in pillars.image1 and pillars.image2)
+                    if (content.pillars?.image1) {
+                        const img1 = document.querySelector('[data-editable-img="pillars-img1"]');
+                        if (img1) img1.src = content.pillars.image1;
+                    }
+                    if (content.pillars?.image2) {
+                        const img2 = document.querySelector('[data-editable-img="pillars-img2"]');
+                        if (img2) img2.src = content.pillars.image2;
+                    }
                 }
             } catch(e) {
                 console.log('No Supabase content yet, using defaults');

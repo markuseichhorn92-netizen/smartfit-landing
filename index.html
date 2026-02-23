@@ -1983,7 +1983,9 @@
                     
                     Object.keys(content.images || {}).forEach(key => {
                         const img = document.querySelector(`[data-editable-img="${key}"]`);
-                        if (img) img.src = content.images[key];
+                        if (img && content.images[key] && content.images[key].trim() !== '') {
+                            img.src = content.images[key];
+                        }
                     });
                     
                     // Handle pillars images (stored in pillars.image1 and pillars.image2)

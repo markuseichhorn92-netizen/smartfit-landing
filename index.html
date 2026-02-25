@@ -1360,7 +1360,14 @@
             </div>
             
             <div class="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-10" data-aos="fade-up" data-aos-delay="200">
-                <form class="space-y-4 sm:space-y-6" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <form id="contact-form" class="space-y-4 sm:space-y-6" action="https://formsubmit.co/support@smartfit-coaching.de" method="POST">
+                    <!-- FormSubmit.co Configuration -->
+                    <input type="hidden" name="_subject" value="🏋️ Neue Anfrage - Longevity Coaching">
+                    <input type="hidden" name="_next" value="https://longevity.smartfit-coaching.de/?success=true">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="_honey" style="display:none">
+                    
                     <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                             <label class="block text-xs sm:text-sm text-gray-400 mb-1.5 sm:mb-2">Vorname *</label>
@@ -2046,6 +2053,17 @@
                 }
             });
         });
+        
+        // Check for success redirect from FormSubmit
+        if (window.location.search.includes('success=true')) {
+            setTimeout(() => {
+                alert('✅ Vielen Dank für deine Anfrage!\n\nDavid meldet sich innerhalb von 24 Stunden bei dir.');
+                // Clean URL
+                window.history.replaceState({}, '', window.location.pathname);
+                // Scroll to contact section
+                document.getElementById('kontakt')?.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
     </script>
 
 </body>

@@ -130,6 +130,7 @@
                     <button onclick="showTab('testimonials')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="testimonials">Bewertungen</button>
                     <button onclick="showTab('faq')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="faq">FAQ</button>
                     <button onclick="showTab('contact')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="contact">Kontakt</button>
+                    <button onclick="showTab('leads')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="leads">📬 Anfragen</button>
                     <button onclick="showTab('about')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="about">Über David</button>
                 </div>
             </div>
@@ -343,6 +344,25 @@
                     
                     <label class="input-label">Calendly URL</label>
                     <input type="url" class="input-field" data-bind="contact.calendlyUrl">
+                </div>
+            </section>
+            
+            <!-- Leads Section -->
+            <section id="tab-leads" class="tab-content hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold">📬 Eingehende Anfragen</h2>
+                    <button onclick="refreshLeads()" class="btn-secondary flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        Aktualisieren
+                    </button>
+                </div>
+                
+                <div id="leads-container">
+                    <div class="card text-center py-12 text-gray-400">
+                        <p>Lade Anfragen...</p>
+                    </div>
                 </div>
             </section>
             
@@ -655,6 +675,81 @@
             updateLastSaved();
         }
         
+        // Leads Management
+        async function refreshLeads() {
+            const container = document.getElementById('leads-container');
+            container.innerHTML = '<div class="card text-center py-8 text-gray-400"><p>Lade...</p></div>';
+            
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/smartfit_content?id=eq.main&select=content`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                
+                if (!res.ok) throw new Error('Fehler beim Laden');
+                
+                const data = await res.json();
+                const leads = data[0]?.content?.leads || [];
+                
+                if (leads.length === 0) {
+                    container.innerHTML = `
+                        <div class="card text-center py-12">
+                            <div class="text-4xl mb-4">📭</div>
+                            <p class="text-gray-400">Noch keine Anfragen eingegangen.</p>
+                            <p class="text-gray-500 text-sm mt-2">Neue Anfragen erscheinen hier automatisch.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Sort by date (newest first)
+                leads.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                
+                container.innerHTML = `
+                    <div class="text-sm text-gray-400 mb-4">${leads.length} Anfrage${leads.length !== 1 ? 'n' : ''} insgesamt</div>
+                    <div class="space-y-4">
+                        ${leads.map((lead, i) => `
+                            <div class="card">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">${lead.vorname} ${lead.nachname}</h3>
+                                        <p class="text-gray-400 text-sm">${new Date(lead.created_at).toLocaleString('de-DE')}</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-medium">Neu</span>
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-3 text-sm">
+                                    <div>
+                                        <span class="text-gray-500">📧 E-Mail:</span>
+                                        <a href="mailto:${lead.email}" class="text-cyan-400 hover:underline ml-1">${lead.email}</a>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">📞 Telefon:</span>
+                                        <a href="tel:${lead.telefon}" class="text-cyan-400 hover:underline ml-1">${lead.telefon}</a>
+                                    </div>
+                                </div>
+                                ${lead.ziel ? `<div class="mt-3 text-sm"><span class="text-gray-500">🎯 Ziel:</span> ${lead.ziel}</div>` : ''}
+                                ${lead.nachricht ? `<div class="mt-3 p-3 bg-white/5 rounded-lg text-sm"><span class="text-gray-500">💬 Nachricht:</span><br>${lead.nachricht}</div>` : ''}
+                                <div class="flex gap-2 mt-4">
+                                    <a href="mailto:${lead.email}?subject=Ihr%20Coaching-Interesse%20bei%20SmartFit" class="btn-primary text-sm px-4 py-2">✉️ E-Mail senden</a>
+                                    <a href="tel:${lead.telefon}" class="btn-secondary text-sm px-4 py-2">📞 Anrufen</a>
+                                    <a href="https://wa.me/${lead.telefon.replace(/[^0-9]/g, '')}?text=Hallo%20${lead.vorname}%2C%20danke%20f%C3%BCr%20Ihr%20Interesse%20am%20SmartFit%20Coaching!" target="_blank" class="btn-secondary text-sm px-4 py-2">💬 WhatsApp</a>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } catch (err) {
+                container.innerHTML = `
+                    <div class="card text-center py-8 text-red-400">
+                        <p>❌ Fehler beim Laden der Anfragen</p>
+                        <button onclick="refreshLeads()" class="btn-secondary mt-4">Erneut versuchen</button>
+                    </div>
+                `;
+            }
+        }
+        
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab').forEach(el => {
@@ -665,6 +760,11 @@
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
             document.querySelector(`[data-tab="${tabName}"]`).classList.remove('tab-inactive');
             document.querySelector(`[data-tab="${tabName}"]`).classList.add('tab-active');
+            
+            // Auto-load leads when tab is shown
+            if (tabName === 'leads') {
+                refreshLeads();
+            }
         }
         
         function updateLastSaved() {

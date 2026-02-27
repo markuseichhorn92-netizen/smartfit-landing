@@ -1412,12 +1412,8 @@
             </div>
             
             <div class="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-10" data-aos="fade-up" data-aos-delay="200">
-                <form id="contact-form" class="space-y-4 sm:space-y-6" action="https://formsubmit.co/support@smartfit-coaching.de" method="POST">
-                    <!-- FormSubmit.co Configuration -->
-                    <input type="hidden" name="_subject" value="🏋️ Neue Anfrage - Longevity Coaching">
-                    <input type="hidden" name="_next" value="https://longevity.smartfit-coaching.de/?success=true">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
+                <form id="contact-form" class="space-y-4 sm:space-y-6" onsubmit="return submitContactForm(event)">
+                    <!-- Honeypot for spam protection -->
                     <input type="text" name="_honey" style="display:none">
                     
                     <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
@@ -2068,6 +2064,98 @@
 
     <!-- ==================== SCRIPTS ==================== -->
     <script>
+        // Contact Form Submission via Supabase
+        async function submitContactForm(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            // Check honeypot
+            if (form._honey && form._honey.value) return false;
+            
+            // Get form data
+            const data = {
+                vorname: form.vorname.value.trim(),
+                nachname: form.nachname.value.trim(),
+                email: form.email.value.trim(),
+                telefon: form.telefon.value.trim(),
+                ziel: form.ziel?.value || '',
+                nachricht: form.nachricht?.value?.trim() || '',
+                created_at: new Date().toISOString(),
+                source: 'longevity-landing'
+            };
+            
+            // Validate
+            if (!data.vorname || !data.nachname || !data.email || !data.telefon) {
+                alert('Bitte füllen Sie alle Pflichtfelder aus.');
+                return false;
+            }
+            
+            // Show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Wird gesendet...';
+            
+            try {
+                // Get existing content (which has a leads array)
+                const getRes = await fetch(`${SUPABASE_URL}/rest/v1/smartfit_content?id=eq.main&select=content`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                
+                let content = {};
+                if (getRes.ok) {
+                    const rows = await getRes.json();
+                    if (rows.length > 0 && rows[0].content) {
+                        content = rows[0].content;
+                    }
+                }
+                
+                // Add lead to leads array
+                if (!content.leads) content.leads = [];
+                content.leads.push(data);
+                
+                // Save back to Supabase
+                const saveRes = await fetch(`${SUPABASE_URL}/rest/v1/smartfit_content?id=eq.main`, {
+                    method: 'PATCH',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({ content })
+                });
+                
+                if (!saveRes.ok) throw new Error('Speicherfehler');
+                
+                // Success!
+                form.reset();
+                submitBtn.textContent = '✅ Gesendet!';
+                submitBtn.classList.remove('gradient-bg');
+                submitBtn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    alert('✅ Vielen Dank für Ihre Anfrage!\n\nDavid meldet sich innerhalb von 24 Stunden bei Ihnen.');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.add('gradient-bg');
+                    submitBtn.classList.remove('bg-green-600');
+                }, 300);
+                
+            } catch (err) {
+                console.error('Form error:', err);
+                alert('Es gab ein Problem. Bitte versuchen Sie es erneut oder rufen Sie direkt an: 0178 883 87 85');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+            
+            return false;
+        }
+        
         // Initialize AOS
         AOS.init({ duration: 600, once: true, offset: 30 });
         

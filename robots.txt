@@ -1,0 +1,12 @@
+# Robots.txt for longevity.smartfit-coaching.de
+
+User-agent: *
+Allow: /
+
+# Disallow admin areas
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /admin-cms.html
+
+# Sitemap location
+Sitemap: https://longevity.smartfit-coaching.de/sitemap.xml

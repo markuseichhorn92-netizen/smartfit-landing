@@ -2083,7 +2083,10 @@
                 console.log('No Supabase content yet, using defaults');
             }
         }
-        loadSavedContent();
+        // Auto-Load aus Supabase deaktiviert: die statische HTML-Seite ist die
+        // alleinige Quelle. Verhindert den Flash + das Zurückspringen auf eine
+        // alte, in der Datenbank gespeicherte CMS-Variante beim Laden.
+        // loadSavedContent();
     </script>
 
     <!-- ==================== SCRIPTS ==================== -->
